@@ -48,7 +48,7 @@ const create = async (temporada) => {
 
     //El método insertOne() es de mongoDb y es el cual hace la inserción a la base de datos. Nos 
     //devuelve un resultado que sirve para mostrar lo que se insertó.
-    let resultado = coleccion.insertOne(temporada);
+    let resultado = await coleccion.insertOne(temporada);
 
     //Con resultado(variable que definí) viene una clave llamada insertedId
     return resultado.insertedId;
