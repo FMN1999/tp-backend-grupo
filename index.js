@@ -11,7 +11,7 @@ const express = require('express');
 const debug = require('debug')("app:main");
 
 
-const { TemporadaAPI } = require('./models/temporada');
+const { TipoRopaAPI } = require('./models/tipoRopa');
 
 
 //Defino el puerto para la aplicación.
@@ -28,7 +28,7 @@ app.use(express.json());
 
 
 
-TemporadaAPI(app);
+TipoRopaAPI(app);
 
 
 
