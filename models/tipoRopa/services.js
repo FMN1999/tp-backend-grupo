@@ -19,7 +19,7 @@ const TIPOROPA = 'tipoRopa';
 
 /*--------------------------------------------Funciones------------------------------------------------*/
 
-//getAll me trae todos los documentos de la colección de temporada
+//getAll me trae todos los documentos de la colección de tipoRopa
 const getAll = async () => {
 
     //Paso como argumento el nombre de la colección a la cual quiero acceder.
@@ -30,7 +30,7 @@ const getAll = async () => {
     return await coleccion.find({}).toArray();
 }
 
-//Con getById obtengo una temporada mediante su id
+//Con getById obtengo un tipoRopa mediante su id
 const getById = async (id) => {
     const coleccion = await Database(TIPOROPA);
 
@@ -42,7 +42,7 @@ const getById = async (id) => {
 
 
 
-//create  me sirve para crear un documento temporada 
+//create  me sirve para crear un documento tipoRopa 
 const create = async (tiporopa) => {
     const coleccion = await Database(TIPOROPA);
 
@@ -54,10 +54,22 @@ const create = async (tiporopa) => {
     return resultado.insertedId;
 }
 
+//drop me sirve para eliminar un documento tipoRopa
+const drop = async (id) => {
+    const coleccion = await Database(TIPOROPA);
+    //Dado que el id viene como string, debemos de convertirlo a Object para consultar a la 
+    //base de datos de MongoDB. Aca uso el método findOne({}) de MongoDB, donde la condición 
+    //es que coincida el id que recibo como parámetro (más arriba), con el de la colección donde busco.
+    await coleccion.remove({_id: ObjectId(id)})
+    let confirmacion = "elemento eliminado con exito";
+    return confirmacion;
+}
+
 
 //Exporto las funciones creadas anteriormente, para poder usarlas en otros archivos.
 module.exports.TipoRopaServices = {
     getAll,
     getById, 
-    create
+    create,
+    drop
 }

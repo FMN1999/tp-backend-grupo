@@ -53,5 +53,18 @@ module.exports.TipoRopaController = {
             debug(error);
             res.status(500).json({message: "Internal server error"});
         }
+    },
+
+    dropTipoRopa: async(req, res) => {
+        //Desestructuro el objeto req(request) para obtener el id que viene en la URL. 
+        //De req obtengo params, y de params obtengo el id.
+        try {    
+            const {params : { id } } = req;
+            const confirmacion = await TipoRopaServices.drop(id);
+            res.json(confirmacion);
+        } catch (error) {
+            debug(error);
+            res.status(500).json({message: "Internal server error"});
+        }
     }
 }
