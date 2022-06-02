@@ -53,5 +53,16 @@ module.exports.TemporadaController = {
             debug(error);
             res.status(500).json({message: "Internal server error"});
         }
+    },
+
+    dropTemporada: async(req, res) => {
+        try {
+            const {params : { id } } = req;
+            const confirmacion = await TemporadaServices.drop(id);
+            res.json(confirmacion);
+        } catch (error) {
+            debug(error);
+            res.status(500).json({message: "Internal server error"});
+        }
     }
 }
