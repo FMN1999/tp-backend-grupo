@@ -57,9 +57,8 @@ const create = async (temporada) => {
 
 const drop = async (id) => {
     const coleccion = await Database(TEMPORADA);
-    await coleccion.remove({_id: ObjectId(id)})
-    let confirmacion = "Elemento eliminado con éxito";
-    return confirmacion;
+    
+    return coleccion.deleteOne({_id: ObjectId(id)})
 }
 
 
