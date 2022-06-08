@@ -27,7 +27,7 @@ module.exports.Database = (coleccion) => new Promise( async(resolve, reject) => 
         if(!conexion){
 
             //Creo la uri que luego servirá para crear el cliente de conexión
-            const uri = "mongodb+srv://nombreUsuario:contraseña@ttads.tbykf.mongodb.net/?retryWrites=true&w=majority";
+            const uri = "mongodb+srv://usuario:contraseña@ttads.tbykf.mongodb.net/?retryWrites=true&w=majority";
 
             //Genero un nuevo cliente de conexión. A este debo pasarle el uri.
             const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
