@@ -29,6 +29,9 @@ module.exports.TemporadaAPI = (app) => {
     //Con esto genero una URL: http://localhost:3000/
     .post('/', TemporadaController.createTemporada)
 
+    //Con esto genero una URL: http://localhost:3000/id
+    .post('/:id', TemporadaController.dropTemporada)
+
     app.use('/api/temporadas', router);
     //Aplicando router, en el caso del getTemporadas (Primer GET)
     // mi URL quedaría: http://localhost:3000/api/temporadas/
@@ -37,4 +40,6 @@ module.exports.TemporadaAPI = (app) => {
     //la URL quedaría: http://localhost:3000/api/temporadas/id
 
     //En el caso de POST, la URL queda: http://localhost:3000/api/temporadas/
+
+
 }

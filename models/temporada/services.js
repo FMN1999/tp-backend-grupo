@@ -55,9 +55,17 @@ const create = async (temporada) => {
 }
 
 
+const drop = async (id) => {
+    const coleccion = await Database(TEMPORADA);
+    
+    return coleccion.deleteOne({_id: ObjectId(id)})
+}
+
+
 //Exporto las funciones creadas anteriormente, para poder usarlas en otros archivos.
 module.exports.TemporadaServices = {
     getAll,
     getById, 
-    create
+    create, 
+    drop
 }
