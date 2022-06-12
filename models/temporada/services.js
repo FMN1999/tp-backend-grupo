@@ -30,8 +30,8 @@ const getAll = async () => {
     return await coleccion.find({}).toArray();
 }
 
-//Con getById obtengo una temporada mediante su id
-const getById = async (id) => {
+//Con getTemporadaById obtengo una temporada mediante su id
+const getTemporadaById = async (id) => {
     const coleccion = await Database(TEMPORADA);
 
     //Dado que el id viene como string, debemos de convertirlo a Object para consultar a la 
@@ -42,8 +42,8 @@ const getById = async (id) => {
 
 
 
-//create  me sirve para crear un documento temporada 
-const create = async (temporada) => {
+//createTemporada  me sirve para crear un documento temporada 
+const createTemporada = async (temporada) => {
     const coleccion = await Database(TEMPORADA);
 
     //El método insertOne() es de mongoDb y es el cual hace la inserción a la base de datos. Nos 
@@ -55,9 +55,23 @@ const create = async (temporada) => {
 }
 
 
+const deleteTemporada = async (id) => {
+    const coleccion = await Database(TEMPORADA);
+    return coleccion.deleteOne({_id: ObjectId(id)});
+}
+
+
+const updateTemporada = async (idTemporada, fechaDesde, fechaHasta, detalle) => {
+    const coleccion = await Database(TEMPORADA);
+    return await coleccion.updateOne({_id: ObjectId(idTemporada)}, { $set: {fechaDesde, fechaHasta, detalle}})
+}
+
+
 //Exporto las funciones creadas anteriormente, para poder usarlas en otros archivos.
 module.exports.TemporadaServices = {
     getAll,
-    getById, 
-    create
+    getTemporadaById, 
+    createTemporada, 
+    deleteTemporada, 
+    updateTemporada
 }
