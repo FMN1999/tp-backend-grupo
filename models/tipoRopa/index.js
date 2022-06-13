@@ -29,8 +29,11 @@ module.exports.TipoRopaAPI = (app) => {
     //Con esto genero una URL: http://localhost:3000/
     .post('/', TipoRopaController.createTipoRopa)
 
-    //Con esto genero la URL: http://localhost:3000/
-    .post('/:id', TipoRopaController.dropTipoRopa)
+    //Con esto genero la URL: http://localhost:3000/id
+    .delete('/:id', TipoRopaController.deleteTipoRopa)
+
+    //Con esto genero una URL: http://localhost:3000/id
+    .put('/:id', TipoRopaController.updateTipoRopa)
 
     app.use('/api/tiposRopa', router);
     //Aplicando router, en el caso del getTiposRopa (Primer GET)
@@ -41,5 +44,7 @@ module.exports.TipoRopaAPI = (app) => {
 
     //En el caso de POST, la URL queda: http://localhost:3000/api/tiposRopa/
 
-    //En el caso de POST del Drop, la URL queda: http://localhost:3000/api/tiposRopa/id
+    //En el caso de PUT, http://localhost:3000/api/tiposRopa/id
+
+    //En el caso de DELETE, http://localhost:3000/api/tiposRopa/id
 }
