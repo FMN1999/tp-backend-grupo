@@ -49,7 +49,7 @@ module.exports.TemporadaController = {
         //De req obtengo params, y de params obtengo el id.
         try {    
             const {params : { id } } = req;
-            let temporada = await TemporadaServices.getById(id);
+            let temporada = await TemporadaServices.getTemporadaById(id);
 
             //Voy a realizar una validación para el caso en que no exista una temporada:
 
@@ -95,7 +95,7 @@ module.exports.TemporadaController = {
 
             //Si hay datos en el body
             else{
-                const insertedId = await TemporadaServices.create(body);
+                const insertedId = await TemporadaServices.createTemporada(body);
 
                 //Envío la respuesta de éxito
                 Response.success(res, 201, 'Temporada agregada exitosamente', insertedId);
@@ -114,11 +114,11 @@ module.exports.TemporadaController = {
         }
     },
 
-    dropTemporada: async(req, res) => {
+    deleteTemporada: async(req, res) => {
         try {
             const {params : { id } } = req;
             //const confirmacion = await TemporadaServices.drop(id);
-            let temporada = await TemporadaServices.drop(id);
+            let temporada = await TemporadaServices.deleteTemporada(id);
             
             Response.success(res, 200, `Temporada ${id} eliminada correctamente`, temporada);
             //res.json(confirmacion);
@@ -128,6 +128,20 @@ module.exports.TemporadaController = {
             Response.error(res);
             //ESTO ERA LA VERSIÓN VIEJA
             //res.status(500).json({message: "Internal server error"});
+        }
+    },
+
+    updateTemporada: async(req, res) => {
+        try {
+            const {params : { id } } = req;
+            const {body : {fechaDesde, fechaHasta, detalle} } = req;
+
+            let temporada = await TemporadaServices.updateTemporada(id, fechaDesde, fechaHasta, detalle);
+
+            Response.success(res, 200, `Temporada ${id} modificada correctamente`, temporada);
+        } catch(error) {
+            debug(error);
+            Response.error(res);
         }
     }
 }
