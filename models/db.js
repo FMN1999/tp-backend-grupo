@@ -1,8 +1,8 @@
 const mongoose = require ("mongoose");
-const uri = "mongodb+srv://usuario:contraseña@ttads.tbykf.mongodb.net/tienda_ropa?retryWrites=true&w=majority";
+require("dotenv").config();
 
 const dbConection = mongoose
-    .connect(uri) 
+    .connect(process.env.MONGODB_URI) 
     .then(() => console.log("Conectado a MongoDB Atlas")) 
     .catch((error) => console.error(error)); 
 
