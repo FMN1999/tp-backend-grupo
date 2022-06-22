@@ -23,7 +23,8 @@
     "expres": "^0.0.5",
     "express": "^4.18.0",
     "http-errors": "^2.0.0",
-    "mongodb": "^4.5.0"
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
