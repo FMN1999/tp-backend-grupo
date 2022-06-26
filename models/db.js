@@ -1,9 +1,9 @@
-const mongoose = require ("mongoose");
-require("dotenv").config();
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-const dbConection = mongoose
-    .connect(process.env.MONGODB_URI) 
-    .then(() => console.log("Conectado a MongoDB Atlas")) 
-    .catch((error) => console.error(error)); 
+const dbConnection = mongoose
+    .connect(process.env.MONGODB_URI)
+    .then( () => console.log("Conexión a MongoDB Atlas exitosa") )
+    .catch( () => console.error(error) )
 
-module.exports = dbConection;
+module.exports = dbConnection;
