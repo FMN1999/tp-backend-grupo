@@ -9,6 +9,7 @@ require('dotenv').config();
 
 const tempoRutas = require('./models/temporada/temporadaController');
 const ropaRutas = require('./models/ropa/ropaController');
+const tipoRopaRutas = require('./models/tipoRopa/tipoRopaController')
 const dbConnection = require('./models/db');
 
 const app = express();
