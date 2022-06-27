@@ -44,7 +44,7 @@ router.get("/tiposRopa", async(req, res) => {
         .find()
         .then( (data) => res.json(data) )
         .catch( (error) => res.json({message:error}) );
-})
+});
 
 //getById
 router.get('/tiposRopa/:id', async(req, res) => {
@@ -63,20 +63,23 @@ router.get('/tiposRopa/:id', async(req, res) => {
     } catch (error) {
         Response.error(res);
     }
-})
+});
 
 //update
-router.put("tiposRopa/:id", async(req, res) => {
+router.put("/:id", async(req, res) => {
     try {
-        const {id} = req.params;
-        const {detalle} = req.body;
-        let tr = await tipoRopaModel. updateOne({_id: id}, { $set: {detalle}});
-        Response.success(res, 200, "Tipo de Ropa actualizada correctamente", tr);
+        const { id } = req.params;
+        const { detalle } = req.body;
+        //let tr = await tipoRopaModel. updateOne({_id: id}, { $set: {detalle}});
+        //Response.success(res, 200, "Tipo de Ropa actualizada correctamente", tr);
+        tipoRopaModel
+            .updateOne({ _id: id}, { $set: {detalle} })  
+            .then((data) => res.json(data)) 
+            .catch((error) => res.json({ message:error })); 
     } catch (error) {
         Response.error(error);
     }
-})
-
+});
 
 //delete
 router.delete("/:id", async(req, res) => {
@@ -87,6 +90,6 @@ router.delete("/:id", async(req, res) => {
     } catch (error) {
         Response.error(error);
     }
-})
+});
 
 module.exports = router;
