@@ -20,11 +20,6 @@ router.get("/temporadas", async(req, res) => {
     } catch (error) {
         Response.error(error);
     }
-    
-    temporadaModel
-        .find()
-        .then( (data) => res.json(data) )
-        .catch( (error) => res.json({message:error}) );
 })
 
 //create
@@ -60,7 +55,6 @@ router.get('/temporadas/:id', async(req, res) => {
         else{
             Response.success(res, 200, `Temporada: ${id}`, tempo);
         }
-
     } catch (error) {
         Response.error(res);
     }
@@ -68,11 +62,11 @@ router.get('/temporadas/:id', async(req, res) => {
 
 
 //update
-router.put("temporadas/:id", async(req, res) => {
+router.put('/temporadas/:id', async(req, res) => {
     try {
         const {id} = req.params;
         const {detalle, fechaDesde, fechaHasta} = req.body;
-        let tempo = await temporadaModel. updateOne({_id: id}, { $set: {detalle, fechaDesde, fechaHasta}});
+        let tempo = await temporadaModel.updateOne({_id: id}, { $set: {detalle, fechaDesde, fechaHasta}});
         Response.success(res, 200, "Temporada actualizada correctamente", tempo);
     } catch (error) {
         Response.error(error);
@@ -81,10 +75,10 @@ router.put("temporadas/:id", async(req, res) => {
 
 
 //delete
-router.delete("/:id", async(req, res) => {
+router.delete("/temporadas/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        await temporadaModel.deleteOne({"_id": id});
+        await temporadaModel.deleteOne({_id: id});
         Response.success(res, 200, `Temporada eliminada correctamente`);
     } catch (error) {
         Response.error(error);
