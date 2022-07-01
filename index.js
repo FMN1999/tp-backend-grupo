@@ -11,7 +11,7 @@ require('dotenv').config();
 
 const tempoRutas = require('./models/temporada/temporadaController');
 const ropaRutas = require('./models/ropa/ropaController');
-const tipoRopaRutas = require('./models/tipoRopa/tipoRopaController');
+const precioRopaRutas = require('./models/precioRopa/precioRopaController');
 const dbConnection = require('./models/db');
 
 const app = express();
@@ -20,9 +20,10 @@ app.use(express.json());
 
 
 IndexAPI(app);
+app.use("/api", precioRopaRutas);
 app.use("/api", tempoRutas);
 app.use("/api", ropaRutas);
 
 
 
-app.listen(process.env.PORT, () => console.log(`Server running on: ${process.env.PORT}`));
+app.listen(process.env.PORT, () => console.log(`Servidor corriendo en: ${process.env.PORT}`));
