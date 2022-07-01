@@ -78,13 +78,12 @@ router.put('/ropas/:id', async(req, res) => {
     }
 })
 
-
 //delete
-router.delete("/:id", async(req, res) => {
+router.delete("/ropas/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        await ropaModel.deleteOne({"_id": id});
-        Response.success(res, 200, `Ropa eliminada correctamente`);
+        let ropa = await ropaModel.deleteOne({"_id": id});
+        Response.success(res, 200, `Ropa eliminada correctamente`, ropa);
     } catch (error) {
         Response.error(error);
     }
