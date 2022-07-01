@@ -66,7 +66,7 @@ router.get('/tiposRopa/:id', async(req, res) => {
 });
 
 //update
-router.put("/:id", async(req, res) => {
+router.put("/tiposRopa/:id", async(req, res) => {
     try {
         const { id } = req.params;
         const { detalle } = req.body;
@@ -82,7 +82,7 @@ router.put("/:id", async(req, res) => {
 });
 
 //delete
-router.delete("/:id", async(req, res) => {
+router.delete("/tiposRopa/:id", async(req, res) => {
     try {
         const { id } = req.params;
         await tipoRopaModel.deleteOne({"_id": id});
