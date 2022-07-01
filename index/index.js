@@ -11,7 +11,8 @@ module.exports.IndexAPI = (app) => {
     router.get("/", (req, res) => {
         const menu = {
             temporadas: `http://${req.headers.host}/api/temporadas`, 
-            ropas: `http://${req.headers.host}/api/ropas`
+            ropas: `http://${req.headers.host}/api/ropas`, 
+            precioRopas: `http://${req.headers.host}/api/preciosRopa`
         }
 
         Response.success(res, 200, "API Tienda_Ropa", menu);
