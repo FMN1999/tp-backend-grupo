@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const empleadoSchema = mongoose.Schema({
     legajo: {
-        type: Integer,
+        type: Number,
         required:true
     },
     nombre: {

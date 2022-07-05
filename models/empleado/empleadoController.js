@@ -1,13 +1,10 @@
 const express = require('express');
-const temporada = require('./empleadoModel');
-
+const empleadoModel = require('./empleadoModel');
+const router = express.Router();
 
 const { Response } = require('../../response');
 
 const createError = require('http-errors');
-
-
-const router = express.Router();
 
 
 router.get("/empleados", async(req, res) => {
@@ -17,11 +14,6 @@ router.get("/empleados", async(req, res) => {
     } catch (error) {
         Response.error(error);
     }
-
-    empleadoModel
-        .find()
-        .then( (data) => res.json(data) )
-        .catch( (error) => res.json({message:error}) );
 })
 
 router.post('/empleados', async(req, res) => {
@@ -32,8 +24,8 @@ router.post('/empleados', async(req, res) => {
             Response.error(res, new createError.BadRequest());
         }
         else{
-            const tempo = empleadoModel(req.body);
-            await tempo.save();
+            const emp = empleadoModel(req.body);
+            await emp.save();
             Response.success(res, 201, 'Empleado agregado correctamente', emp);
         }
     } catch (error) {

@@ -1,7 +1,11 @@
 const express = require("express");
 const clientSchema = require("../modelo/cliente");
-
 const router = express.Router();
+
+
+const { Response } = require('../../../response');
+
+const createError = require('http-errors');
 
 
 //Para crearlo
@@ -15,12 +19,14 @@ router.post ("/clientes", (req, res) => {
 
 
 //GetAll
-router.get ("/clientes", (req, res) => {   
-    clientSchema
-        .find() 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
-});
+router.get("/clientes", async(req, res) => {
+    try {
+        let clientes = await clientSchema.find();
+        Response.success(res, 200, 'Listado de clientes', clientes);
+    } catch (error) {
+        Response.error(error);
+    }
+})
 
 
 //Para buscar por id

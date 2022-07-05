@@ -12,6 +12,9 @@ require('dotenv').config();
 const tempoRutas = require('./models/temporada/temporadaController');
 const ropaRutas = require('./models/ropa/ropaController');
 const precioRopaRutas = require('./models/precioRopa/precioRopaController');
+const empleadosRutas = require('./models/empleado/empleadoController')
+const clientesRutas = require('./models/cliente/routes/controller');
+const tipoRopaRutas = require('./models/tipoRopa/tipoRopaController');
 const dbConnection = require('./models/db');
 
 const app = express();
@@ -23,6 +26,9 @@ IndexAPI(app);
 app.use("/api", precioRopaRutas);
 app.use("/api", tempoRutas);
 app.use("/api", ropaRutas);
+app.use("/api", empleadosRutas);
+app.use("/api", clientesRutas);
+app.use("/api", tipoRopaRutas);
 
 
 
