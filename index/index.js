@@ -24,3 +24,18 @@ module.exports.IndexAPI = (app) => {
     app.use("/", router);
 
 }
+
+module.exports.NotFoundAPI = (app) => {
+
+    //Creo el objeto router
+    const router = express.Router();
+
+    //Cualquier petición inexistente en nuestra aplicación que llegue. Todas las rutas que 
+    //lleguen con cualquier verbo que no tengamos definidos ó controlados en nuestra aplicación, 
+    //que responda con este controlador
+    router.all('*', (req, res) => {
+        Response.error(res, new createError.NotFound());
+    })
+
+    app.use("/", router);
+}
