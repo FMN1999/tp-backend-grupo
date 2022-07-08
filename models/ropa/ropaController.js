@@ -89,5 +89,37 @@ router.delete("/ropas/:id", async(req, res) => {
     }
 })
 
+
+
+
+
+
+
+
+
+
+//getAllDetalle. Esto muestra el detalle, y luego clickeando la entidad en el Front, mostrará 
+//la categoria y el precio
+router.get('/ropasDetalle', async(req, res) => {
+    try {
+        let ropas = await ropaModel.find({}, {"detalle":1, "_id":0});
+        Response.success(res, 200, 'Listado de ropas', ropas);
+    } catch (error) {
+        Response.error(res);
+    }
+})
+
+//getAllCategoria. Esto muestra la categoría
+router.get('/ropasCate', async(req, res) => {
+    try {
+        let ropas = await ropaModel.find({}, {"categoria":1, "_id":0});
+        Response.success(res, 200, 'Listado de ropas', ropas);
+    } catch (error) {
+        Response.error(res);
+    }
+})
+
+
+
 //Importo las rutas para usar desde el index.js, almacenado en la carpeta raíz del proyecto
 module.exports = router;
