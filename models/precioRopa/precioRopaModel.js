@@ -1,7 +1,6 @@
 const mongoose = require ("mongoose");
 
-const precioRopaSchema = mongoose.Schema({
-    //importe: Number, 
+const precioRopaSchema = mongoose.Schema({ 
     importe: {
         type: Number,
         required:true
@@ -10,7 +9,7 @@ const precioRopaSchema = mongoose.Schema({
         type: String,
         required:true
     },
-    idRopa: {type: mongoose.Schema.Types.ObjectId, ref: 'ropa', required:true}
+    ropa: {type: mongoose.Schema.Types.ObjectId, ref: 'ropa', required:true}
 });
 
 module.exports = mongoose.model('PrecioRopa', precioRopaSchema);
