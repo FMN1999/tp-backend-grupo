@@ -6,11 +6,11 @@ import { Injectable } from '@angular/core';
 })
 export class RopasService {
   
-  readonly baseUrl = 'http://localhost:3000/api/';
+  readonly baseUrl = "http://localhost:3000/api";
   constructor(private http: HttpClient) { }
 
   getRopas() {
-    const url = this.baseUrl + 'ropas';
+    const url = this.baseUrl + "/ropas";
     return this.http.get<any>(url);
    }
 }

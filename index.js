@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 
 const {IndexAPI, NotFoundAPI} = require('./index/index');
 
+//lo importo para que me funcione y se vea en frontend angular
+let cors = require("cors");
+
 require('dotenv').config();
 
 
@@ -30,6 +33,7 @@ app.use("/api", tempoRutas);
 app.use("/api", ropaRutas);
 app.use("/api", empleadosRutas);
 app.use("/api", clientesRutas);
+app.use(cors());
 app.use("/api", tipoRopaRutas);
 
 //Por último se coloca lo de errores
