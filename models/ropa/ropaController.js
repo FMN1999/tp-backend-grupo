@@ -46,24 +46,13 @@ router.post('/ropas', async(req, res) => {
 })
 
 //getById
-router.get('/ropas/:id', async(req, res) => {
-    try {
-        const { id } = req.params;
-        let ropa = await ropaModel.findById(id);
-
-        //Valido que exista la ropa a buscar
-        if(!ropa){
-            Response.error(res, new createError.NotFound());
-        }
-
-        else{
-            Response.success(res, 200, `Ropa: ${id}`, ropa);
-        }
-
-    } catch (error) {
-        Response.error(res);
-    }
-})
+router.get ("/ropas/:id", (req, res) => {
+    const { id } = req.params;
+    ropaModel
+        .findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message:error }));
+});
 
 //update
 router.put('/ropas/:id', async(req, res) => {

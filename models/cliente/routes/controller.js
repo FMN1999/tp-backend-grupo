@@ -40,7 +40,7 @@ router.get ("/clientes/:id", (req, res) => {
 
 
 //Para modificar
-router.put ("/clientes/:id", (req, res) => {   
+router.put ("/clientes/:id", (req, res) => {
     const { id } = req.params; 
     const { apellido, email, nombre } = req.body; 
     clientSchema

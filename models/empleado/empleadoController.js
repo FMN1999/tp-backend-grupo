@@ -20,7 +20,7 @@ router.post('/empleados', async(req, res) => {
     try {
         const {body} = req;
 
-        if(!body || Object.keys(body).length == 0){
+        if(!body || Object.keys(body).length === 0){
             Response.error(res, new createError.BadRequest());
         }
         else{
@@ -34,44 +34,31 @@ router.post('/empleados', async(req, res) => {
 });
 
 
-router.get('/empleados/:id', async(req, res) => {
-    try {
-        const {id} = req.params;
-        let emp = await empleadoModel.findById(id);
-
-        if(!emp){
-            Response.error(res, new createError.NotFound());
-        }
-        else{
-            Response.success(res, 200, `Empleado: ${id}`, emp);
-        }
-
-    } catch (error) {
-        Response.error(res);
-    }
-})
+router.get ("/empleados/:id", (req, res) => {
+    const { id } = req.params;
+    empleadoModel
+        .findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message:error }));
+});
 
 
-router.put("empleados/:id", async(req, res) => {
-    try {
-        const {id} = req.params;
-        const {legajo, nombre, apellido} = req.body;
-        let emp = await empleadoModel.updateOne({_id: id}, { $set: {legajo, nombre, apellido}});
-        Response.success(res, 200, "Empleado actualizado correctamente", emp);
-    } catch (error) {
-        Response.error(error);
-    }
-})
+router.put ("/empleados/:id", (req, res) => {
+    const { id } = req.params;
+    const { apellido, legajo, nombre } = req.body;
+    empleadoModel
+        .updateOne({ _id: id}, { $set: {apellido, legajo, nombre} })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message:error }));
+});
 
 
-router.delete("/:id", async(req, res) => {
-    try {
-        const { id } = req.params;
-        await empleadoModel.deleteOne({"_id": id});
-        Response.success(res, 200, `Empleado eliminado correctamente`);
-    } catch (error) {
-        Response.error(error);
-    }
-})
+router.delete ("/empleados/:id", (req, res) => {
+    const { id } = req.params;
+    empleadoModel
+        .remove({ _id: id})
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message:error }));
+});
 
 module.exports = router;
