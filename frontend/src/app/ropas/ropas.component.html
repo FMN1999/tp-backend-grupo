@@ -3,3 +3,21 @@
 </pre>
 
 <button (click)="loadRopas()">Cargar</button>
+
+
+
+<!--Aca comenzaria a probar lo que seria ya la lista de ropas despplegables-->
+<!--que al hacer click en el detalle de alguno me de como resultado su precio y la categoria-->
+
+<ul>
+    <li *ngFor="let item of detallesRopas">
+        {{item}}
+    </li>
+</ul>
+
+
+
+<pre>
+    {{detallesRopas|json}}
+</pre>
+<button (click)="loadDetalleRopas">CargarDetalles</button>

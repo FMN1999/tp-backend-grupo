@@ -13,4 +13,16 @@ export class RopasService {
     const url = this.baseUrl + "/ropas";
     return this.http.get<any>(url);
    }
+
+  getDetalleRopas() {
+    const url = this.baseUrl + "/ropasDetalle";
+    return this.http.get<any>(url);
+  }
+
+  getCategoriaRopas() {
+    const url = this.baseUrl + "/ropasCate";
+    return this.http.get<any>(url);
+  }
+
+  
 }

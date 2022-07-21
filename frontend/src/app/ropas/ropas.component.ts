@@ -10,11 +10,21 @@ import { RopasService } from '../ropas.service';
 export class RopasComponent{
 
   ropas:any = [];
+  detallesRopas:any = [];
+  preciosRopas:any = [];
   constructor(private service: RopasService) { }
 
 
   loadRopas(){
     this.service.getRopas().subscribe(response => this.ropas = response);
+  }
+
+  loadDetalleRopas(){
+    this.service.getDetalleRopas().subscribe(response => this.detallesRopas = response);
+  }
+
+  loadCategoriaRopas(){
+    this.service.getCategoriaRopas().subscribe(response => this.preciosRopas = response);
   }
 
 }
