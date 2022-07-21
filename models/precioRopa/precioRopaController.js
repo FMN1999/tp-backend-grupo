@@ -2,7 +2,21 @@ const express = require("express");
 const precioRopaSchema = require("./precioRopaModel");
 
 const router = express.Router();
+const { Response } = require('../../response');
 
+
+//getAll
+router.get ("/preciosRopa", async(req, res) => {
+    try {
+        let preciosRopa = await precioRopaSchema.find().populate('ropa');
+        Response.success(res, 200, 'Listado de precios de ropas', preciosRopa);
+    } catch (error) {
+        Response.error(res);
+    }
+});
+
+
+//create
 router.post ("/preciosRopa", (req, res) => {
     const preciosRopa = precioRopaSchema(req.body); 
     preciosRopa
@@ -11,20 +25,8 @@ router.post ("/preciosRopa", (req, res) => {
         .catch((error) => res.json({ message:error })); 
 });
 
-router.get ("/preciosRopa", (req, res) => {   
-    precioRopaSchema
-        .find() 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
-});
 
-router.get ("/preciosRopa", (req, res) => {   
-    precioRopaSchema
-        .find() 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
-});
-
+//getById
 router.get ("/preciosRopa/:id", (req, res) => {   
     const { id } = req.params; 
     precioRopaSchema
@@ -33,15 +35,20 @@ router.get ("/preciosRopa/:id", (req, res) => {
         .catch((error) => res.json({ message:error })); 
 });
 
+
+//update
 router.put ("/preciosRopa/:id", (req, res) => {   
     const { id } = req.params; 
-    const { importe, fechaDesde, idRopa } = req.body; 
+    const { importe, fechaDesde, ropa } = req.body; 
     precioRopaSchema
-        .updateOne({ _id: id}, { $set: {importe, fechaDesde, idRopa} })  
+        .updateOne({ _id: id}, { $set: {importe, fechaDesde, ropa} })  
         .then((data) => res.json(data)) 
         .catch((error) => res.json({ message:error })); 
 });
 
+
+
+//delete
 router.delete ("/preciosRopa/:id", (req, res) => {   
     const { id } = req.params; 
     precioRopaSchema
