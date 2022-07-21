@@ -12,6 +12,7 @@ require('dotenv').config();
 const tempoRutas = require('./models/temporada/temporadaController');
 const ropaRutas = require('./models/ropa/ropaController');
 const precioRopaRutas = require('./models/precioRopa/precioRopaController');
+const tipoRopaRutas = require('./models/tipoRopa/tipoRopaController');
 const dbConnection = require('./models/db');
 
 const app = express();
@@ -24,9 +25,10 @@ IndexAPI(app);
 //Luego se colocan las demás entidades/rutas
 app.use("/api", precioRopaRutas);
 app.use("/api", tempoRutas);
+app.use("/api", tipoRopaRutas);
 app.use("/api", ropaRutas);
 
 //Por último se coloca lo de errores
 NotFoundAPI(app);
 
-app.listen(process.env.PORT, () => console.log(`Servidor corriendo en: ${process.env.PORT}`));
+app.listen(process.env.PORT, () => console.log(`Servidor corriendo en el puerto: ${process.env.PORT}`));

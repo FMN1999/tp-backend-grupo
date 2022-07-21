@@ -12,7 +12,8 @@ module.exports.IndexAPI = (app) => {
         const menu = {
             temporadas: `http://${req.headers.host}/api/temporadas`, 
             ropas: `http://${req.headers.host}/api/ropas`, 
-            precioRopas: `http://${req.headers.host}/api/preciosRopa`
+            precioRopas: `http://${req.headers.host}/api/preciosRopa`, 
+            tipoRopas: `http://${req.headers.host}/api/tiposRopa` 
         }
 
         Response.success(res, 200, "API Tienda_Ropa", menu);

@@ -18,7 +18,8 @@ const ropaSchema = mongoose.Schema({
     detalle: {
         type:String, 
         required:true
-    } 
+    }, 
+    tipoRopa: {type: mongoose.Schema.Types.ObjectId, ref: 'tipoRopa', required:true}
 })
 
 //Convierto el schema a modelo y lo importo para así poder trabajar desde otros archivos.
