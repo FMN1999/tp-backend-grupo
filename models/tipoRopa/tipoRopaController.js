@@ -34,17 +34,12 @@ router.post('/tiposRopa', async(req, res) => {
 //getAll
 router.get("/tiposRopa", async(req, res) => {
     try {
-        let tipoR = await tipoRopaModel.find();
-        Response.success(res, 200, 'Listado de tipos de ropa', tipoR);
+        let tiposRopa = await tipoRopaModel.find();
+        Response.success(res, 200, 'Listado de tipos de ropa', tiposRopa);
     } catch (error) {
         Response.error(error);
     }
-    
-    tipoRopaModel
-        .find()
-        .then( (data) => res.json(data) )
-        .catch( (error) => res.json({message:error}) );
-});
+})
 
 //getById
 router.get('/tiposRopa/:id', async(req, res) => {
