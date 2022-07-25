@@ -1,3 +1,4 @@
+
 <pre>
     {{ropas|json}}
 </pre>
@@ -5,19 +6,45 @@
 <button (click)="loadRopas()">Cargar</button>
 
 
-
 <!--Aca comenzaria a probar lo que seria ya la lista de ropas despplegables-->
 <!--que al hacer click en el detalle de alguno me de como resultado su precio y la categoria-->
-
-<ul>
-    <li *ngFor="let item of detallesRopas">
-        {{item}}
-    </li>
-</ul>
-
 
 
 <pre>
     {{detallesRopas|json}}
 </pre>
-<button (click)="loadDetalleRopas">CargarDetalles</button>
+<button (click)="loadDetalleRopas()">CargarDetalles</button>
+
+<br>
+
+
+<h1>prueba de items fallida</h1>
+<ul>
+    <li *ngFor="let rp of ropas">
+        {{ rp.detalle }}
+    </li>
+</ul>
+
+
+<h1>prueba de tabla fallida</h1>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Categoria</th>
+                <th>Talle</th>
+                <th>Detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rp of ropas" >
+                <td> {{ rp.marca }} </td>
+                <td> {{ rp.categoria }} </td>
+                <td> {{ rp.talle }} </td>
+                <td> {{ rp.detalle }} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
