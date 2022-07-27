@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ReqResResponse } from './models/reqres-response';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,18 @@ export class RopasService {
 
   getRopas() {
     const url = this.baseUrl + "/ropas";
-    return this.http.get<any>(url);
+    return this.http.get<ReqResResponse>(url);
    }
+
+  getDetalleRopas() {
+    const url = this.baseUrl + "/ropasDetalles";
+    return this.http.get<ReqResResponse>(url);
+  }
+
+  getCategoriaRopas() {
+    const url = this.baseUrl + "/ropasCate";
+    return this.http.get<ReqResResponse>(url);
+  }
+
+  
 }
