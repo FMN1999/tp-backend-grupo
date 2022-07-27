@@ -4,6 +4,8 @@ const express = require('express');
 //Importo el modelo que se creó, una vez obtenido el schema
 const ropaModel = require('./ropaModel');
 
+const tipoRopaModel = require('../tipoRopa/tipoRopaModel');
+
 //Creo el router para así poder manejar mis propias rutas
 const router = express.Router();
 
@@ -18,7 +20,7 @@ const createError = require('http-errors');
 //getAll
 router.get('/ropas', async(req, res) => {
     try {
-        let ropas = await ropaModel.find();
+        let ropas = await ropaModel.find().populate('tipoRopa').populate('precioRopa').populate('temporada');
         Response.success(res, 200, 'Listado de ropas', ropas);
     } catch (error) {
         Response.error(res);
@@ -46,20 +48,17 @@ router.post('/ropas', async(req, res) => {
 })
 
 //getById
-router.get ("/ropas/:id", (req, res) => {
-    const { id } = req.params;
-    ropaModel
-        .findById(id)
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message:error }));
-});
+router.get('/ropas/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        let ropa = await ropaModel.findById(id).populate('tipoRopa').populate('precioRopa').populate('temporada');
 
 //update
 router.put('/ropas/:id', async(req, res) => {
     try {
         const {id} = req.params;
-        const {marca, categoria, talle, detalle} = req.body;
-        let ropa = await ropaModel.updateOne({_id:id}, { $set: {marca, categoria, talle, detalle}});
+        const {marca, categoria, talle, detalle, tipoRopa} = req.body;
+        let ropa = await ropaModel.updateOne({_id:id}, { $set: {marca, categoria, talle, detalle, tipoRopa}});
         Response.success(res, 200, "Ropa actualizada correctamente", ropa);
 
     } catch (error) {
@@ -87,22 +86,49 @@ router.delete("/ropas/:id", async(req, res) => {
 
 
 
-//getAllDetalle. Esto muestra el detalle, y luego clickeando la entidad en el Front, mostrará 
-//la categoria y el precio
-router.get('/ropasDetalle', async(req, res) => {
+//Al hacer click en una ropa, que muestre la CATEGORIA, TEMPORADA, TIPO DE ROPA y el PRECIO.
+//getAllDetalles. Esto muestra el detalle, categoría, precio de ropa, tipo de ropa y temporada.  
+router.get('/ropasDetalles', async(req, res) => {
     try {
-        let ropas = await ropaModel.find({}, {"detalle":1, "_id":0});
+        let ropas = await ropaModel.find({}, {"detalle":1, "categoria":1, "precioRopa":1, "tipoRopa":1, "_id":0}).populate('tipoRopa').populate('precioRopa').populate('temporada');
         Response.success(res, 200, 'Listado de ropas', ropas);
     } catch (error) {
         Response.error(res);
     }
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //getAllCategoria. Esto muestra la categoría
 router.get('/ropasCate', async(req, res) => {
     try {
         let ropas = await ropaModel.find({}, {"categoria":1, "_id":0});
         Response.success(res, 200, 'Listado de ropas', ropas);
+    } catch (error) {
+        Response.error(res);
+    }
+})
+
+
+
+//getByTipoRopa
+router.get('/ropasFiltro/:detalleTipoRopa', async(req, res) => {
+    try {
+        const {detalleTipoRopa} = req.params;
+        let docTipoRopa = await tipoRopaModel.find({"detalle":detalleTipoRopa});
+        let ropas = await ropaModel.find({"tipoRopa": docTipoRopa}).populate('tipoRopa').populate('precioRopa').populate('temporada');
+        Response.success(res, 200, 'Listado de ropas con filtro', ropas);
     } catch (error) {
         Response.error(res);
     }

@@ -30,6 +30,7 @@ IndexAPI(app);
 //Luego se colocan las demás entidades/rutas
 app.use("/api", precioRopaRutas);
 app.use("/api", tempoRutas);
+app.use("/api", tipoRopaRutas);
 app.use("/api", ropaRutas);
 app.use("/api", empleadosRutas);
 app.use("/api", clientesRutas);
@@ -39,4 +40,4 @@ app.use("/api", tipoRopaRutas);
 //Por último se coloca lo de errores
 NotFoundAPI(app);
 
-app.listen(process.env.PORT, () => console.log(`Servidor corriendo en: ${process.env.PORT}`));
+app.listen(process.env.PORT, () => console.log(`Servidor corriendo en el puerto: ${process.env.PORT}`));

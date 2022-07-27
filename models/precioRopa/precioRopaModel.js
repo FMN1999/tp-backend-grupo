@@ -9,7 +9,6 @@ const precioRopaSchema = mongoose.Schema({
         type: String,
         required:true
     },
-    ropa: {type: mongoose.Schema.Types.ObjectId, ref: 'ropa', required:true}
 });
 
 module.exports = mongoose.model('PrecioRopa', precioRopaSchema);
