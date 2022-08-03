@@ -1,18 +1,23 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RopasService } from './ropas.service';
+import { RopasComponent } from './ropas/ropas.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RopasComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule, 
+    HttpClientModule
   ],
-  providers: [],
+  providers: [RopasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
