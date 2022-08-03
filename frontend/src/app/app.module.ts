@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
@@ -20,7 +21,7 @@ import { RopasComponent } from './ropas/ropas.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [RopasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

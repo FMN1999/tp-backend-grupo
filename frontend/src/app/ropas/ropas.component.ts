@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { response } from 'express';
+import { Component } from '@angular/core';
 import { RopasService } from '../ropas.service';
 
 @Component({
@@ -8,17 +7,13 @@ import { RopasService } from '../ropas.service';
   styleUrls: ['./ropas.component.css']
 })
 
-export class RopasComponent implements OnInit{
+export class RopasComponent {
 
   public ropas:any = [];
   detallesRopas:any = [];
   preciosRopas:any = [];
   
   constructor(private service: RopasService) { }
-
-  ngOnInit():void{
-    this.loadRopas();
-  }
 
   loadRopas(){
     this.service.getRopas().subscribe(response => this.ropas = response);
@@ -35,11 +30,7 @@ export class RopasComponent implements OnInit{
 }
 
 
-
-
-
 export class Ropa {
-
   id: string | undefined;
   detalle: string | undefined;
   marca: string | undefined;

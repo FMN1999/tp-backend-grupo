@@ -1,27 +1,32 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReqResResponse } from './models/reqres-response';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RopasService {
   
-  readonly baseUrl = "http://localhost:3000/api";
+  
+
+  //El servicio que aca inyecto (HttpClient) me va a servir para poder realizar las peticiones(GET, PUT, POST).
   constructor(private http: HttpClient) { }
 
+  baseUrl = "http://localhost:3000";
+
   getRopas() {
-    const url = this.baseUrl + "/ropas";
+    const url = this.baseUrl + "/api/ropas";
     return this.http.get<ReqResResponse>(url);
-   }
+  }
 
   getDetalleRopas() {
-    const url = this.baseUrl + "/ropasDetalles";
+    const url = this.baseUrl + "/api/ropasDetalles";
     return this.http.get<ReqResResponse>(url);
   }
 
   getCategoriaRopas() {
-    const url = this.baseUrl + "/ropasCate";
+    const url = this.baseUrl + "/api/ropasCate";
     return this.http.get<ReqResResponse>(url);
   }
 

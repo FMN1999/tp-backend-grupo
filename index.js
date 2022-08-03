@@ -5,10 +5,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const {IndexAPI, NotFoundAPI} = require('./index/index');
-
-//lo importo para que me funcione y se vea en frontend angular
 let cors = require("cors");
-
 require('dotenv').config();
 
 
@@ -23,6 +20,10 @@ const dbConnection = require('./models/db');
 const app = express();
 
 app.use(express.json());
+
+
+app.use(cors());
+
 
 //Debe de colocarse primero el menú principal
 IndexAPI(app);
