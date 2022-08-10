@@ -116,14 +116,6 @@ router.get('/ropasDetalles', async(req, res) => {
 
 
 
-
-
-
-
-
-
-
-
 //getAllCategoria. Esto muestra la categoría
 router.get('/ropasCate', async(req, res) => {
     try {

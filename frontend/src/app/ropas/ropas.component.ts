@@ -13,6 +13,8 @@ export class RopasComponent implements OnInit{
   public ropas:any = [];
   detallesRopas:any = [];
   preciosRopas:any = [];
+
+  public ropita:any = [];
   
   constructor(private service: RopasService) { }
 
@@ -30,6 +32,11 @@ export class RopasComponent implements OnInit{
 
   loadCategoriaRopas(){
     this.service.getCategoriaRopas().subscribe(response => this.preciosRopas = response);
+  }
+
+  cargarRopa(){
+    let id:any = document.getElementById('idRopa')?.innerHTML;
+    this.service.cargarRopa(id).subscribe(response => this.ropita = response);
   }
 
 }

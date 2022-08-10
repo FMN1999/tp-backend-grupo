@@ -25,5 +25,10 @@ export class RopasService {
     return this.http.get<ReqResResponse>(url);
   }
 
+  cargarRopa(id:any){
+    const url = this.baseUrl + "/ropas/"+ id; 
+    return this.http.get<ReqResResponse>(url);
+  }
+
   
 }
