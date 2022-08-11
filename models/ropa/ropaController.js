@@ -71,8 +71,8 @@ router.get('/ropas/:id', async(req, res) => {
 router.put('/ropas/:id', async(req, res) => {
     try {
         const {id} = req.params;
-        const {marca, categoria, talle, detalle, tipoRopa} = req.body;
-        let ropa = await ropaModel.updateOne({_id:id}, { $set: {marca, categoria, talle, detalle, tipoRopa}});
+        const {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa} = req.body;
+        let ropa = await ropaModel.updateOne({_id:id}, { $set: {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa}});
         Response.success(res, 200, "Ropa actualizada correctamente", ropa);
 
     } catch (error) {
