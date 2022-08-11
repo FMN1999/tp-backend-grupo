@@ -102,19 +102,15 @@ router.delete("/ropas/:id", async(req, res) => {
 
 //Al hacer click en una ropa, que muestre la CATEGORIA, TEMPORADA, TIPO DE ROPA y el PRECIO.
 //getAllDetalles. Esto muestra el detalle, categoría, precio de ropa, tipo de ropa y temporada.  
-router.get('/ropasDetalles', async(req, res) => {
+router.get('/ropasDetalles/:id', async(req, res) => {
     try {
-        let ropas = await ropaModel.find({}, {"detalle":1, "categoria":1, "precioRopa":1, "tipoRopa":1, "_id":0}).populate('tipoRopa').populate('precioRopa').populate('temporada');
+        const { id } = req.params;
+        let ropas = await ropaModel.findById(id, {"detalle":1, "categoria":1, "precioRopa":1, "tipoRopa":1, "_id":0}).populate('tipoRopa').populate('precioRopa').populate('temporada');
         Response.success(res, 200, 'Listado de ropas', ropas);
     } catch (error) {
         Response.error(res);
     }
 })
-
-
-
-
-
 
 
 
