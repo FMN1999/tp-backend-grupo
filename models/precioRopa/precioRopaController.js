@@ -8,7 +8,7 @@ const { Response } = require('../../response');
 //getAll
 router.get ("/preciosRopa", async(req, res) => {
     try {
-        let preciosRopa = await precioRopaSchema.find().populate('ropa');
+        let preciosRopa = await precioRopaSchema.find();
         Response.success(res, 200, 'Listado de precios de ropas', preciosRopa);
     } catch (error) {
         Response.error(res);
