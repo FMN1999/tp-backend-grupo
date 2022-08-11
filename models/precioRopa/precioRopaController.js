@@ -17,44 +17,67 @@ router.get ("/preciosRopa", async(req, res) => {
 
 
 //create
-router.post ("/preciosRopa", (req, res) => {
-    const preciosRopa = precioRopaSchema(req.body); 
-    preciosRopa
-        .save() 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
+router.post ("/preciosRopa", async(req, res) => {
+    try {
+        const{body} = req;
+
+        //Valido que el objeto no esté vacío
+        if(!body || Object.keys(body).length == 0){
+            Response.error(res, new createError.BadRequest());
+        }
+        else{
+            const pr = precioRopaSchema(req.body);
+            await pr.save();
+            Response.success(res, 201, 'Precio de ropa agregado correctamente', pr);
+        }
+    } catch (error) {
+        Response.error(error);
+    }
 });
 
 
 //getById
-router.get ("/preciosRopa/:id", (req, res) => {   
-    const { id } = req.params; 
-    precioRopaSchema
-        .findById(id) 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
+router.get ("/preciosRopa/:id", async(req, res) => {
+    try {
+        const{id} = req.params;
+        let pr = await precioRopaSchema.findById(id);
+        
+        //Valido que exista la temporada a buscar
+        if(!pr){
+            Response.error(res, new createError.NotFound());
+        }
+        else{
+            Response.success(res, 200, `Precio de ropa: ${id}`, pr);
+        }
+    } catch (error) {
+        Response.error(res);
+    }
 });
 
 
 //update
-router.put ("/preciosRopa/:id", (req, res) => {   
-    const { id } = req.params; 
-    const { importe, fechaDesde, ropa } = req.body; 
-    precioRopaSchema
-        .updateOne({ _id: id}, { $set: {importe, fechaDesde, ropa} })  
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
+router.put ("/preciosRopa/:id", async(req, res) => {   
+    try {
+        const {id} = req.params;
+        const {importe, fechaDesde} = req.body;
+        let pr = await precioRopaSchema.updateOne({_id: id}, { $set: {importe, fechaDesde}});
+        Response.success(res, 200, "Precio de ropa actualizado correctamente", pr);
+    } catch (error) {
+        Response.error(error);
+    }
 });
 
 
 
 //delete
-router.delete ("/preciosRopa/:id", (req, res) => {   
-    const { id } = req.params; 
-    precioRopaSchema
-        .remove({ _id: id}) 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
+router.delete ("/preciosRopa/:id", async(req, res) => {   
+    try {
+        const { id } = req.params;
+        await precioRopaSchema.deleteOne({_id: id});
+        Response.success(res, 200, `Precio de ropa eliminado correctamente`);
+    } catch (error) {
+        Response.error(error);
+    }
 });
 
 module.exports = router;
