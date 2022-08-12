@@ -1,18 +1,17 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
-import { HttpClientModule } from '@angular/common/http';
 import { RopasComponent } from './ropas/ropas.component';
+import {RopasService} from "./ropas.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmpleadosComponent
+    EmpleadosComponent,
     AppComponent,
     RopasComponent
   ],
