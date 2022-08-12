@@ -65,12 +65,8 @@ router.put("/tiposRopa/:id", async(req, res) => {
     try {
         const { id } = req.params;
         const { detalle } = req.body;
-        //let tr = await tipoRopaModel. updateOne({_id: id}, { $set: {detalle}});
-        //Response.success(res, 200, "Tipo de Ropa actualizada correctamente", tr);
-        tipoRopaModel
-            .updateOne({ _id: id}, { $set: {detalle} })  
-            .then((data) => res.json(data)) 
-            .catch((error) => res.json({ message:error })); 
+        let tr = await tipoRopaModel. updateOne({_id: id}, { $set: {detalle}});
+        Response.success(res, 200, "Tipo de Ropa actualizada correctamente", tr);
     } catch (error) {
         Response.error(error);
     }

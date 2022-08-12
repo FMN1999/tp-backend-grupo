@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RopasService } from '../ropas.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { RopasService } from '../ropas.service';
   styleUrls: ['./ropas.component.css']
 })
 
-export class RopasComponent {
+export class RopasComponent implements OnInit {
 
   public ropas:any = [];
   detallesRopas:any = [];
@@ -16,6 +16,10 @@ export class RopasComponent {
   public ropita:any = [];
   
   constructor(private service: RopasService) { }
+
+  ngOnInit(): void {
+    this.loadRopas();
+  }
 
   loadRopas(){
     this.service.getRopas().subscribe(response => this.ropas = response);
