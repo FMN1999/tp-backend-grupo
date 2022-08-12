@@ -1,0 +1,34 @@
+.centrado_horizontal {
+    display: flex;
+    justify-content: center;
+}
+
+table td{
+    background-color: #9C27B0;
+    border-style: solid;
+    border-color: antiquewhite;
+    color: antiquewhite;
+}
+
+table th{
+    background-color: #7B1FA2;
+    border-style: solid;
+    border-color: antiquewhite;
+    color: antiquewhite;
+}
+
+body{
+    background-color: #7C4DFF;
+}
+h1{
+    color: antiquewhite;
+}
+h2{
+    color: antiquewhite;
+}
+label{
+    color: antiquewhite;
+}
+footer{
+    color: antiquewhite;
+}
