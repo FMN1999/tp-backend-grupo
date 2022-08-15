@@ -35,10 +35,4 @@ El sistema entonces será utilizado por los vendedores de la caja del establecim
 -lista de ropas
 -lista de ropas con filtro por tipo de ropa
 
-al momento de seleccionar una ropa que te muestre todos los detalles de la temporada, el tipo de ropa, el precio..
-
-# Integrantes:
-Buchhamer Ariel
-Dolan Guillermo
-Navarro Franco
-Santolari Matias
+Al momento de seleccionar una ropa que te muestre todos los detalles de la temporada, el tipo de ropa, el precio..
