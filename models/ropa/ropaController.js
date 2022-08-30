@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 //Importo el paquete de express
 const express = require('express');
 
@@ -139,4 +138,3 @@ router.get('/ropasFiltro/:detalleTipoRopa', async(req, res) => {
 
 //Importo las rutas para usar desde el index.js, almacenado en la carpeta raíz del proyecto
 module.exports = router;
->>>>>>> branch-guille
