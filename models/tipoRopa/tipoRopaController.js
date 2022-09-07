@@ -60,6 +60,24 @@ router.get('/tiposRopa/:id', async(req, res) => {
     }
 });
 
+//getByDetalle
+router.get('/tipoRopa/:detail', async(req, res) => {
+    try {
+        const {detail} = req.params;
+        let tipoRopa = await tipoRopaModel.find({detalle: detail});
+
+        //Valido que exista el tipo de ropa a buscar
+        if(!tipoRopa){
+            Response.error(res, new createError.NotFound());
+        }
+        else{
+            Response.success(res, 200, `Tipo de ropa: ${detail}`, tipoRopa);
+        }
+    } catch (error) {
+        Response.error(res);
+    }
+})
+
 //update
 router.put("/tiposRopa/:id", async(req, res) => {
     try {
