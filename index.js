@@ -30,6 +30,7 @@ app.use(cors());
 IndexAPI(app);
 
 //Luego se colocan las demás entidades/rutas
+app.use("/api", ropaRutas);
 app.use("/api", precioRopaRutas);
 app.use("/api", tempoRutas);
 app.use("/api", tipoRopaRutas);
@@ -39,6 +40,7 @@ app.use("/api", clientesRutas);
 app.use(cors());
 app.use("/api", tipoRopaRutas);
 app.use("/api", comentariosRopaRutas);
+
 
 //Por último se coloca lo de errores
 NotFoundAPI(app);

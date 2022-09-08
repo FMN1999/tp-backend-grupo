@@ -8,7 +8,6 @@ const { Response } = require('../../response');
 //Para un correcto manejo de errores, uso el paquete de http-errors
 const createError = require('http-errors');
 
-
 const router = express.Router();
 
 
@@ -54,6 +53,24 @@ router.get('/temporadas/:id', async(req, res) => {
         }
         else{
             Response.success(res, 200, `Temporada: ${id}`, tempo);
+        }
+    } catch (error) {
+        Response.error(res);
+    }
+})
+
+//getByDetalle
+router.get('/temporada/:detail', async(req, res) => {
+    try {
+        const {detail} = req.params;
+        let tempo = await temporadaModel.find({detalle: detail});
+
+        //Valido que exista la temporada a buscar
+        if(!tempo){
+            Response.error(res, new createError.NotFound());
+        }
+        else{
+            Response.success(res, 200, `Temporada: ${detail}`, tempo);
         }
     } catch (error) {
         Response.error(res);

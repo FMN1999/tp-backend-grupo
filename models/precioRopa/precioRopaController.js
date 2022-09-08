@@ -55,6 +55,24 @@ router.get ("/preciosRopa/:id", async(req, res) => {
 });
 
 
+//getByImporte
+router.get('/precioRopa/:amount', async(req, res) => {
+    try {
+        const {amount} = req.params;
+        let precioRopa = await precioRopaSchema.find({importe: Number(amount)});
+
+        //Valido que exista el precio de ropa a buscar
+        if(!precioRopa){
+            Response.error(res, new createError.NotFound());
+        }
+        else{
+            Response.success(res, 200, `Precio de ropa: ${amount}`, precioRopa);
+        }
+    } catch (error) {
+        Response.error(res);
+    }
+})
+
 //update
 router.put ("/preciosRopa/:id", async(req, res) => {   
     try {
