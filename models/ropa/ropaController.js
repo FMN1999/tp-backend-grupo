@@ -134,7 +134,15 @@ router.get('/ropasFiltro/:detalleTipoRopa', async(req, res) => {
     }
 })
 
-
+router.get('/ropasSearch/:texto_busqueda', async(req, res) => {
+    try {
+        const {texto_busqueda} = req.params;
+        let ropas = await ropaModel.find({detalle: "/^" + texto_busqueda+ "^/"}).populate('tipoRopa').populate('precioRopa').populate('temporada');
+        Response.success(res, 200, 'Busqueda por texto: ', ropas);
+    } catch (error) {
+        Response.error(res);
+    }
+})
 
 //Importo las rutas para usar desde el index.js, almacenado en la carpeta raíz del proyecto
 module.exports = router;
