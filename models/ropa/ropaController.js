@@ -1,4 +1,3 @@
-
 //Importo el paquete de express
 const express = require('express');
 
@@ -10,7 +9,7 @@ const tipoRopaModel = require('../tipoRopa/tipoRopaModel');
 //Creo el router para así poder manejar mis propias rutas
 const router = express.Router();
 
-//Importo el archivo de response.js, el cual me servirá para dar respuestas 
+//Importo el archivo de response.js, el cual me servirá para dar respuestas
 //más personalizadas
 const { Response } = require('../../response');
 
@@ -49,13 +48,24 @@ router.post('/ropas', async(req, res) => {
 })
 
 //getById
-router.get ("/ropas/:id", (req, res) => {
-    const { id } = req.params;
-    ropaModel
-        .findById(id)
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message:error }));
-});
+router.get('/ropas/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        let ropa = await ropaModel.findById(id).populate('tipoRopa').populate('precioRopa').populate('temporada');
+
+        //Valido que exista la ropa a buscar
+        if(!ropa){
+            Response.error(res, new createError.NotFound());
+        }
+
+        else{
+            Response.success(res, 200, `Ropa: ${id}`, ropa);
+        }
+
+    } catch (error) {
+        Response.error(res);
+    }
+})
 
 //update
 router.put('/ropas/:id', async(req, res) => {
