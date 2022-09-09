@@ -137,7 +137,9 @@ router.get('/ropasFiltro/:detalleTipoRopa', async(req, res) => {
 router.get('/ropasSearch/:texto_busqueda', async(req, res) => {
     try {
         const {texto_busqueda} = req.params;
-        let ropas = await ropaModel.find({detalle: "/^" + texto_busqueda+ "^/"}).populate('tipoRopa').populate('precioRopa').populate('temporada');
+        let ropas = await ropaModel.find({"detalle": new RegExp('.*' + texto_busqueda + '.*')})
+            .populate('tipoRopa')
+            .populate('precioRopa').populate('temporada');
         Response.success(res, 200, 'Busqueda por texto: ', ropas);
     } catch (error) {
         Response.error(res);
