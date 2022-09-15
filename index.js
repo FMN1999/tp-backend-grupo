@@ -12,8 +12,11 @@ require('dotenv').config();
 const tempoRutas = require('./models/temporada/temporadaController');
 const ropaRutas = require('./models/ropa/ropaController');
 const precioRopaRutas = require('./models/precioRopa/precioRopaController');
+const empleadosRutas = require('./models/empleado/empleadoController')
+const clientesRutas = require('./models/cliente/routes/controller');
 const tipoRopaRutas = require('./models/tipoRopa/tipoRopaController');
 const dbConnection = require('./models/db');
+const comentariosRopaRutas = require('./models/comentarioRopa/comentarioRopaController');
 
 const app = express();
 
@@ -31,6 +34,12 @@ app.use("/api", ropaRutas);
 app.use("/api", precioRopaRutas);
 app.use("/api", tempoRutas);
 app.use("/api", tipoRopaRutas);
+app.use("/api", ropaRutas);
+app.use("/api", empleadosRutas);
+app.use("/api", clientesRutas);
+app.use(cors());
+app.use("/api", tipoRopaRutas);
+app.use("/api", comentariosRopaRutas);
 
 
 //Por último se coloca lo de errores

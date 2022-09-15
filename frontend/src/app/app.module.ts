@@ -4,17 +4,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RopasService } from './ropas.service';
+import { EmpleadosComponent } from './empleados/empleados.component';
 import { RopasComponent } from './ropas/ropas.component';
+import {RopasService} from "./ropas.service";
 
 @NgModule({
   declarations: [
+    AppComponent,
+    EmpleadosComponent,
     AppComponent,
     RopasComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     HttpClientModule
   ],
   providers: [RopasService],
