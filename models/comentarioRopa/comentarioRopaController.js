@@ -5,13 +5,11 @@ const comentarioRopaModel = require('./comentarioRopaModel');
 const { Response } = require('../../response');
 
 const createError = require('http-errors');
-const tipoRopaModel = require("../tipoRopa/tipoRopaModel");
-const ropaModel = require("../ropa/ropaModel");
 
 
 const router = express.Router();
 
-router.get("/comentariosropa", async(req, res) => {
+router.get("/", async(req, res) => {
     try {
         let comentariosRopa = await comentarioRopaModel.find();
         Response.success(res, 200, 'Listado de comentarios de ropa', comentariosRopa);
@@ -20,7 +18,7 @@ router.get("/comentariosropa", async(req, res) => {
     }
 })
 
-router.post('/comentariosropa', async(req, res) => {
+router.post('/', async(req, res) => {
     try {
         const {body} = req;
 
@@ -36,7 +34,7 @@ router.post('/comentariosropa', async(req, res) => {
     }
 });
 
-router.get('/comentariosropa/:idRopa', async(req, res) => {
+router.get('/:idRopa', async(req, res) => {
     try {
         const {idRopa} = req.params;
         let comentarios = await comentarioRopaModel.find({"idRopa": idRopa});

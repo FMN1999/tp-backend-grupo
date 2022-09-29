@@ -12,7 +12,7 @@ const router = express.Router();
 
 
 //getAll
-router.get("/temporadas", async(req, res) => {
+router.get("/", async(req, res) => {
     try {
         let temporadas = await temporadaModel.find();
         Response.success(res, 200, 'Listado de temporadas', temporadas);
@@ -22,7 +22,7 @@ router.get("/temporadas", async(req, res) => {
 })
 
 //create
-router.post('/temporadas', async(req, res) => {
+router.post('/', async(req, res) => {
     try {
         const {body} = req;
 
@@ -42,7 +42,7 @@ router.post('/temporadas', async(req, res) => {
 
 
 //getById
-router.get('/temporadas/:id', async(req, res) => {
+router.get('/:id', async(req, res) => {
     try {
         const {id} = req.params;
         let tempo = await temporadaModel.findById(id);
@@ -79,7 +79,7 @@ router.get('/temporada/:detail', async(req, res) => {
 
 
 //update
-router.put('/temporadas/:id', async(req, res) => {
+router.put('/:id', async(req, res) => {
     try {
         const {id} = req.params;
         const {detalle, fechaDesde, fechaHasta} = req.body;
@@ -92,7 +92,7 @@ router.put('/temporadas/:id', async(req, res) => {
 
 
 //delete
-router.delete("/temporadas/:id", async(req, res) => {
+router.delete("/:id", async(req, res) => {
     try {
         const { id } = req.params;
         await temporadaModel.deleteOne({_id: id});

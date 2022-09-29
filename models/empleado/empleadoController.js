@@ -7,7 +7,7 @@ const { Response } = require('../../response');
 const createError = require('http-errors');
 
 
-router.get("/empleados", async(req, res) => {
+router.get("/", async(req, res) => {
     try {
         let empleados = await empleadoModel.find();
         Response.success(res, 200, 'Listado de empleados', empleados);
@@ -16,7 +16,7 @@ router.get("/empleados", async(req, res) => {
     }
 })
 
-router.post('/empleados', async(req, res) => {
+router.post('/', async(req, res) => {
     try {
         const {body} = req;
 
@@ -34,7 +34,7 @@ router.post('/empleados', async(req, res) => {
 });
 
 
-router.get ("/empleados/:id", (req, res) => {
+router.get ("/:id", (req, res) => {
     const { id } = req.params;
     empleadoModel
         .findById(id)
@@ -43,7 +43,7 @@ router.get ("/empleados/:id", (req, res) => {
 });
 
 
-router.put ("/empleados/:id", (req, res) => {
+router.put ("/:id", (req, res) => {
     const { id } = req.params;
     const { apellido, legajo, nombre } = req.body;
     empleadoModel
@@ -53,7 +53,7 @@ router.put ("/empleados/:id", (req, res) => {
 });
 
 
-router.delete ("/empleados/:id", (req, res) => {
+router.delete ("/:id", (req, res) => {
     const { id } = req.params;
     empleadoModel
         .remove({ _id: id})

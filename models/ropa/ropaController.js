@@ -18,7 +18,7 @@ const createError = require('http-errors');
 
 
 //getAll
-router.get('/ropas', async(req, res) => {
+router.get('/', async(req, res) => {
     try {
         let ropas = await ropaModel.find().populate('tipoRopa').populate('precioRopa').populate('temporada');
         Response.success(res, 200, 'Listado de ropas', ropas);
@@ -28,7 +28,7 @@ router.get('/ropas', async(req, res) => {
 })
 
 //create
-router.post('/ropas', async(req, res) => {
+router.post('/', async(req, res) => {
     try {
         const { body } = req;
 
@@ -48,7 +48,7 @@ router.post('/ropas', async(req, res) => {
 })
 
 //getById
-router.get('/ropas/:id', async(req, res) => {
+router.get('/:id', async(req, res) => {
     try {
         const { id } = req.params;
         let ropa = await ropaModel.findById(id).populate('tipoRopa').populate('precioRopa').populate('temporada');
@@ -68,7 +68,7 @@ router.get('/ropas/:id', async(req, res) => {
 })
 
 //update
-router.put('/ropas/:id', async(req, res) => {
+router.put('/:id', async(req, res) => {
     try {
         const {id} = req.params;
         const {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa} = req.body;
@@ -81,7 +81,7 @@ router.put('/ropas/:id', async(req, res) => {
 })
 
 //delete
-router.delete("/ropas/:id", async(req, res) => {
+router.delete("/:id", async(req, res) => {
     try {
         const { id } = req.params;
         let ropa = await ropaModel.deleteOne({"_id": id});
