@@ -9,12 +9,13 @@ import { RopasService } from '../ropas.service';
 
 export class RopasComponent implements OnInit {
 
+  public url: string = "http://localhost:3000/api/ropas";
   public ropas:any = [];
   detallesRopas:any = [];
   preciosRopas:any = [];
 
   public ropita:any = [];
-  
+
   constructor(private service: RopasService) { }
 
   ngOnInit(): void {

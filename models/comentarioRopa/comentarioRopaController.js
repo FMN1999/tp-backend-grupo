@@ -22,7 +22,7 @@ router.post('/', async(req, res) => {
     try {
         const {body} = req;
 
-        if(!body || Object.keys(body).length == 0){
+        if(!body || Object.keys(body).length === 0){
             Response.error(res, new createError.BadRequest());
         } else {
             const cr = comentarioRopaModel(req.body);
