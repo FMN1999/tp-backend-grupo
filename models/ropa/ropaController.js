@@ -33,7 +33,7 @@ router.post('/', async(req, res) => {
         const { body } = req;
 
         //Valido que el objeto body no esté vacío
-        if(!body || Object.keys(body).length == 0) {
+        if(!body || Object.keys(body).length === 0) {
             Response.error(res, new createError.BadRequest());
         }
 
