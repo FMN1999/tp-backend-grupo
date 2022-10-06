@@ -61,7 +61,7 @@ router.get('/:id', async(req, res) => {
 });
 
 //getByDetalle
-router.get('/tipoRopa/:detail', async(req, res) => {
+router.get('/tr/:detail', async(req, res) => {
     try {
         const {detail} = req.params;
         let tipoRopa = await tipoRopaModel.find({detalle: detail});

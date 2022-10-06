@@ -60,7 +60,7 @@ router.get('/:id', async(req, res) => {
 })
 
 //getByDetalle
-router.get('/temporada/:detail', async(req, res) => {
+router.get('/det/:detail', async(req, res) => {
     try {
         const {detail} = req.params;
         let tempo = await temporadaModel.find({detalle: detail});

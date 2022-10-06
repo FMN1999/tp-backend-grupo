@@ -56,7 +56,7 @@ router.get ("/:id", async(req, res) => {
 
 
 //getByImporte
-router.get('/precioRopa/:amount', async(req, res) => {
+router.get('/imp/:amount', async(req, res) => {
     try {
         const {amount} = req.params;
         let precioRopa = await precioRopaSchema.find({importe: Number(amount)});
