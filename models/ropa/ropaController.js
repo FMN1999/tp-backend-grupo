@@ -9,7 +9,7 @@ const tipoRopaModel = require('../tipoRopa/tipoRopaModel');
 //Creo el router para así poder manejar mis propias rutas
 const router = express.Router();
 
-//Importo el archivo de response.js, el cual me servirá para dar respuestas 
+//Importo el archivo de response.js, el cual me servirá para dar respuestas
 //más personalizadas
 const { Response } = require('../../response');
 
@@ -18,7 +18,7 @@ const createError = require('http-errors');
 
 
 //getAll
-router.get('/ropas', async(req, res) => {
+router.get('/', async(req, res) => {
     try {
         let ropas = await ropaModel.find().populate('tipoRopa').populate('precioRopa').populate('temporada');
         Response.success(res, 200, 'Listado de ropas', ropas);
@@ -28,12 +28,12 @@ router.get('/ropas', async(req, res) => {
 })
 
 //create
-router.post('/ropas', async(req, res) => {
+router.post('/', async(req, res) => {
     try {
         const { body } = req;
 
         //Valido que el objeto body no esté vacío
-        if(!body || Object.keys(body).length == 0) {
+        if(!body || Object.keys(body).length === 0) {
             Response.error(res, new createError.BadRequest());
         }
 
@@ -48,16 +48,27 @@ router.post('/ropas', async(req, res) => {
 })
 
 //getById
-router.get ("/ropas/:id", (req, res) => {
-    const { id } = req.params;
-    ropaModel
-        .findById(id)
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message:error }));
-});
+router.get('/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        let ropa = await ropaModel.findById(id).populate('tipoRopa').populate('precioRopa').populate('temporada');
+
+        //Valido que exista la ropa a buscar
+        if(!ropa){
+            Response.error(res, new createError.NotFound());
+        }
+
+        else{
+            Response.success(res, 200, `Ropa: ${id}`, ropa);
+        }
+
+    } catch (error) {
+        Response.error(res);
+    }
+})
 
 //update
-router.put('/ropas/:id', async(req, res) => {
+router.put('/:id', async(req, res) => {
     try {
         const {id} = req.params;
         const {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa} = req.body;
@@ -70,7 +81,7 @@ router.put('/ropas/:id', async(req, res) => {
 })
 
 //delete
-router.delete("/ropas/:id", async(req, res) => {
+router.delete("/:id", async(req, res) => {
     try {
         const { id } = req.params;
         let ropa = await ropaModel.deleteOne({"_id": id});
@@ -133,7 +144,17 @@ router.get('/ropasFiltro/:detalleTipoRopa', async(req, res) => {
     }
 })
 
-
+router.get('/ropasSearch/:texto_busqueda', async(req, res) => {
+    try {
+        const {texto_busqueda} = req.params;
+        let ropas = await ropaModel.find({"detalle": new RegExp('.*' + texto_busqueda + '.*')})
+            .populate('tipoRopa')
+            .populate('precioRopa').populate('temporada');
+        Response.success(res, 200, 'Busqueda por texto: ', ropas);
+    } catch (error) {
+        Response.error(res);
+    }
+})
 
 //Importo las rutas para usar desde el index.js, almacenado en la carpeta raíz del proyecto
 module.exports = router;
