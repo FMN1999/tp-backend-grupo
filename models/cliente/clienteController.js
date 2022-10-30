@@ -1,15 +1,13 @@
 const express = require("express");
-const clientSchema = require("../modelo/cliente");
+const clientSchema = require("./clienteModel");
 const router = express.Router();
 
 
-const { Response } = require('../../../response');
-
-const createError = require('http-errors');
+const { Response } = require('../../response');
 
 
 //Para crearlo
-router.post ("/clientes", (req, res) => {
+router.post ("/", (req, res) => {
     const client = clientSchema(req.body); 
     client
         .save() 
@@ -19,7 +17,7 @@ router.post ("/clientes", (req, res) => {
 
 
 //GetAll
-router.get("/clientes", async(req, res) => {
+router.get("/", async(req, res) => {
     try {
         let clientes = await clientSchema.find();
         Response.success(res, 200, 'Listado de clientes', clientes);
@@ -30,7 +28,7 @@ router.get("/clientes", async(req, res) => {
 
 
 //Para buscar por id
-router.get ("/clientes/:id", (req, res) => {   
+router.get ("/:id", (req, res) => {   
     const { id } = req.params; 
     clientSchema
         .findById(id) 
@@ -40,7 +38,7 @@ router.get ("/clientes/:id", (req, res) => {
 
 
 //Para modificar
-router.put ("/clientes/:id", (req, res) => {
+router.put ("/:id", (req, res) => {
     const { id } = req.params; 
     const { apellido, email, nombre } = req.body; 
     clientSchema
@@ -50,7 +48,7 @@ router.put ("/clientes/:id", (req, res) => {
 });
 
 //Para eliminar
-router.delete ("/clientes/:id", (req, res) => {   
+router.delete ("/:id", (req, res) => {   
     const { id } = req.params; 
     clientSchema
         .remove({ _id: id}) 

@@ -1,0 +1,32 @@
+###
+
+POST http://localhost:3000/api/clientes HTTP/1.1
+Content-Type: application/json
+
+{
+    "apellido": "Paredes",
+    "email": "lparedes@gmail.com",
+    "nombre": "Leo"
+}
+
+
+###
+GET http://localhost:3000/api/clientes HTTP/1.1
+
+###
+GET http://localhost:3000/api/clientes/62ab9987efda1c926bbd521a HTTP/1.1
+
+###
+PUT http://localhost:3000/api/clientes/62ab9987efda1c926bbd521a HTTP/1.1
+Content-Type: application/json
+
+{
+    "apellido": "Paredes",
+    "email": "lparedes@gmail.com",
+    "nombre": "Leo"
+}
+
+###
+DELETE http://localhost:3000/api/clientes/62aa8eced31fcee60e4a7145 HTTP/1.1
+
+

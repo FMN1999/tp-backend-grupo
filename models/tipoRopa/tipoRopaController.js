@@ -13,7 +13,7 @@ const router = express.Router();
 
 
 //create
-router.post('/tiposRopa', async(req, res) => {
+router.post('/', async(req, res) => {
     try {
         const {body} = req;
 
@@ -32,7 +32,7 @@ router.post('/tiposRopa', async(req, res) => {
 });
 
 //getAll
-router.get("/tiposRopa", async(req, res) => {
+router.get("/", async(req, res) => {
     try {
         let tiposRopa = await tipoRopaModel.find();
         Response.success(res, 200, 'Listado de tipos de ropa', tiposRopa);
@@ -42,7 +42,7 @@ router.get("/tiposRopa", async(req, res) => {
 })
 
 //getById
-router.get('/tiposRopa/:id', async(req, res) => {
+router.get('/:id', async(req, res) => {
     try {
         const {id} = req.params;
         let tr = await tipoRopaModel.findById(id);
@@ -60,8 +60,26 @@ router.get('/tiposRopa/:id', async(req, res) => {
     }
 });
 
+//getByDetalle
+router.get('/tipoRopa/:detail', async(req, res) => {
+    try {
+        const {detail} = req.params;
+        let tipoRopa = await tipoRopaModel.find({detalle: detail});
+
+        //Valido que exista el tipo de ropa a buscar
+        if(!tipoRopa){
+            Response.error(res, new createError.NotFound());
+        }
+        else{
+            Response.success(res, 200, `Tipo de ropa: ${detail}`, tipoRopa);
+        }
+    } catch (error) {
+        Response.error(res);
+    }
+})
+
 //update
-router.put("/tiposRopa/:id", async(req, res) => {
+router.put("/:id", async(req, res) => {
     try {
         const { id } = req.params;
         const { detalle } = req.body;
@@ -73,7 +91,7 @@ router.put("/tiposRopa/:id", async(req, res) => {
 });
 
 //delete
-router.delete("/tiposRopa/:id", async(req, res) => {
+router.delete("/:id", async(req, res) => {
     try {
         const { id } = req.params;
         await tipoRopaModel.deleteOne({"_id": id});

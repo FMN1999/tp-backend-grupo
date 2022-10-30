@@ -6,7 +6,7 @@ const { Response } = require('../../response');
 
 
 //getAll
-router.get ("/preciosRopa", async(req, res) => {
+router.get ("/", async(req, res) => {
     try {
         let preciosRopa = await precioRopaSchema.find();
         Response.success(res, 200, 'Listado de precios de ropas', preciosRopa);
@@ -17,7 +17,7 @@ router.get ("/preciosRopa", async(req, res) => {
 
 
 //create
-router.post ("/preciosRopa", async(req, res) => {
+router.post ("/", async(req, res) => {
     try {
         const{body} = req;
 
@@ -37,7 +37,7 @@ router.post ("/preciosRopa", async(req, res) => {
 
 
 //getById
-router.get ("/preciosRopa/:id", async(req, res) => {
+router.get ("/:id", async(req, res) => {
     try {
         const{id} = req.params;
         let pr = await precioRopaSchema.findById(id);
@@ -55,8 +55,26 @@ router.get ("/preciosRopa/:id", async(req, res) => {
 });
 
 
+//getByImporte
+router.get('/precioRopa/:amount', async(req, res) => {
+    try {
+        const {amount} = req.params;
+        let precioRopa = await precioRopaSchema.find({importe: Number(amount)});
+
+        //Valido que exista el precio de ropa a buscar
+        if(!precioRopa){
+            Response.error(res, new createError.NotFound());
+        }
+        else{
+            Response.success(res, 200, `Precio de ropa: ${amount}`, precioRopa);
+        }
+    } catch (error) {
+        Response.error(res);
+    }
+})
+
 //update
-router.put ("/preciosRopa/:id", async(req, res) => {   
+router.put ("/:id", async(req, res) => {   
     try {
         const {id} = req.params;
         const {importe, fechaDesde} = req.body;
@@ -68,9 +86,8 @@ router.put ("/preciosRopa/:id", async(req, res) => {
 });
 
 
-
 //delete
-router.delete ("/preciosRopa/:id", async(req, res) => {   
+router.delete ("/:id", async(req, res) => {   
     try {
         const { id } = req.params;
         await precioRopaSchema.deleteOne({_id: id});
