@@ -33,11 +33,9 @@ router.post('/', async(req, res) => {
         const { body } = req;
 
         //Valido que el objeto body no esté vacío
-        if(!body || Object.keys(body).length == 0) {
+        if(!body || Object.keys(body).length === 0) {
             Response.error(res, new createError.BadRequest());
-        }
-
-        else{
+        }else{
             const ropa = ropaModel(req.body);
             await ropa.save();
             Response.success(res, 201, 'Ropa agregada correctamente', ropa);
@@ -56,9 +54,7 @@ router.get('/:id', async(req, res) => {
         //Valido que exista la ropa a buscar
         if(!ropa){
             Response.error(res, new createError.NotFound());
-        }
-
-        else{
+        }else{
             Response.success(res, 200, `Ropa: ${id}`, ropa);
         }
 
