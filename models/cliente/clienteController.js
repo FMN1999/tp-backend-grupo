@@ -1,60 +1,27 @@
-const express = require("express");
-const clientSchema = require("./clienteModel");
+const express = require('express');
+
 const router = express.Router();
 
-
-const { Response } = require('../../response');
-
-
-//Para crearlo
-router.post ("/", (req, res) => {
-    const client = clientSchema(req.body); 
-    client
-        .save() 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
-});
+const {clienteServices} = require('./clienteServices');
 
 
-//GetAll
-router.get("/", async(req, res) => {
-    try {
-        let clientes = await clientSchema.find();
-        Response.success(res, 200, 'Listado de clientes', clientes);
-    } catch (error) {
-        Response.error(error);
-    }
-})
+//getAll
+router.get("/", clienteServices.getAll)
+
+//create
+router.post ("/", clienteServices.create);
 
 
-//Para buscar por id
-router.get ("/:id", (req, res) => {   
-    const { id } = req.params; 
-    clientSchema
-        .findById(id) 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
-});
+//getById
+router.get ("/:id", clienteServices.getById);
 
 
-//Para modificar
-router.put ("/:id", (req, res) => {
-    const { id } = req.params; 
-    const { apellido, email, nombre } = req.body; 
-    clientSchema
-        .updateOne({ _id: id}, { $set: {apellido, email, nombre} })  
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
-});
+//update
+router.put ("/:id", clienteServices.update);
 
-//Para eliminar
-router.delete ("/:id", (req, res) => {   
-    const { id } = req.params; 
-    clientSchema
-        .remove({ _id: id}) 
-        .then((data) => res.json(data)) 
-        .catch((error) => res.json({ message:error })); 
-});
+//delete
+router.delete ("/:id", clienteServices.delete);
+
 
 
 module.exports = router;

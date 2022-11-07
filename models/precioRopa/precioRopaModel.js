@@ -1,6 +1,6 @@
 const mongoose = require ("mongoose");
 
-const precioRopaSchema = mongoose.Schema({ 
+const precioRopaModel = mongoose.Schema({ 
     importe: {
         type: Number,
         required:true
@@ -11,4 +11,4 @@ const precioRopaSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('PrecioRopa', precioRopaSchema);
+module.exports = mongoose.model('PrecioRopa', precioRopaModel);

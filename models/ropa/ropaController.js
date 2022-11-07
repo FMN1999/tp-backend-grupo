@@ -4,88 +4,29 @@ const express = require('express');
 //Importo el modelo que se creó, una vez obtenido el schema
 const ropaModel = require('./ropaModel');
 
-const tipoRopaModel = require('../tipoRopa/tipoRopaModel');
+
+
+const {ropaServices} = require('./ropaServices');
 
 //Creo el router para así poder manejar mis propias rutas
 const router = express.Router();
 
-//Importo el archivo de response.js, el cual me servirá para dar respuestas
-//más personalizadas
-const { Response } = require('../../response');
-
-//Para un correcto manejo de errores, uso el paquete de http-errors
-const createError = require('http-errors');
 
 
 //getAll
-router.get('/', async(req, res) => {
-    try {
-        let ropas = await ropaModel.find().populate('tipoRopa').populate('precioRopa').populate('temporada');
-        Response.success(res, 200, 'Listado de ropas', ropas);
-    } catch (error) {
-        Response.error(res);
-    }
-})
+router.get('/', ropaServices.getAll)
 
 //create
-router.post('/', async(req, res) => {
-    try {
-        const { body } = req;
-
-        //Valido que el objeto body no esté vacío
-        if(!body || Object.keys(body).length === 0) {
-            Response.error(res, new createError.BadRequest());
-        }else{
-            const ropa = ropaModel(req.body);
-            await ropa.save();
-            Response.success(res, 201, 'Ropa agregada correctamente', ropa);
-        }
-    } catch (error) {
-        Response.error(res);
-    }
-})
+router.post('/', ropaServices.create)
 
 //getById
-router.get('/:id', async(req, res) => {
-    try {
-        const { id } = req.params;
-        let ropa = await ropaModel.findById(id).populate('tipoRopa').populate('precioRopa').populate('temporada');
-
-        //Valido que exista la ropa a buscar
-        if(!ropa){
-            Response.error(res, new createError.NotFound());
-        }else{
-            Response.success(res, 200, `Ropa: ${id}`, ropa);
-        }
-
-    } catch (error) {
-        Response.error(res);
-    }
-})
+router.get('/:id', ropaServices.getById)
 
 //update
-router.put('/:id', async(req, res) => {
-    try {
-        const {id} = req.params;
-        const {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa} = req.body;
-        let ropa = await ropaModel.updateOne({_id:id}, { $set: {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa}});
-        Response.success(res, 200, "Ropa actualizada correctamente", ropa);
-
-    } catch (error) {
-        Response.error(error);
-    }
-})
+router.put('/:id', ropaServices.update)
 
 //delete
-router.delete("/:id", async(req, res) => {
-    try {
-        const { id } = req.params;
-        let ropa = await ropaModel.deleteOne({"_id": id});
-        Response.success(res, 200, `Ropa eliminada correctamente`, ropa);
-    } catch (error) {
-        Response.error(error);
-    }
-})
+router.delete("/:id", ropaServices.delete)
 
 
 
