@@ -53,7 +53,7 @@ module.exports.precioRopaServices = {
             const {id} = req.params;
             const {importe, fechaDesde} = req.body;
             let pr = await precioRopaModel.updateOne({_id: id}, { $set: {importe, fechaDesde}});
-            Response.success(res, 200, "Precio de ropa actualizado correctamente", pr);
+            Response.success(res, 201, "Precio de ropa actualizado correctamente", pr);
         } catch (error) {
             Response.error(error);
         }

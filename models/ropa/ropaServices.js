@@ -39,7 +39,6 @@ module.exports.ropaServices = {
             const { id } = req.params;
             let ropa = await ropaModel.findById(id).populate('tipoRopa').populate('precioRopa').populate('temporada');
     
-            //Valido que exista la ropa a buscar
             if(!ropa){
                 Response.error(res, new createError.NotFound());
             }else{
@@ -56,7 +55,7 @@ module.exports.ropaServices = {
             const {id} = req.params;
             const {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa} = req.body;
             let ropa = await ropaModel.updateOne({_id:id}, { $set: {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa}});
-            Response.success(res, 200, "Ropa actualizada correctamente", ropa);
+            Response.success(res, 201, "Ropa actualizada correctamente", ropa);
     
         } catch (error) {
             Response.error(error);

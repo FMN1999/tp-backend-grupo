@@ -54,7 +54,7 @@ module.exports.empleadoServices = {
             const {id} = req.params;
             const {apellido, legajo, nombre} = req.body;
             let empleado = await empleadoModel.updateOne({_id:id}, { $set: {apellido, legajo, nombre}});
-            Response.success(res, 200, "Empleado actualizado correctamente", empleado);
+            Response.success(res, 201, "Empleado actualizado correctamente", empleado);
     
         } catch (error) {
             Response.error(error);

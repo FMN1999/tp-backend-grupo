@@ -2,7 +2,7 @@
 
 
 //Traigo el paquete de http-errors que nos va a permitir crear errores para poder enviarlos. Solo errores!
-const createError = require('http-errors');
+//const createError = require('http-errors');
 
 
 
@@ -31,7 +31,7 @@ module.exports.Response = {
         //recibo como parámetro (error = null), o bien por defecto va a mostrar el InternalServerError
         //(creado aquí abajo).
 
-        const { statusCode, message } = error ? error : new createError.InternalServerError();
+        const { statusCode, message } = error;
         //La condición exhibida en la línea anterior se interpreta:
         
         //"Cuando exista un error como parámetro, que se utilice ese, de lo 

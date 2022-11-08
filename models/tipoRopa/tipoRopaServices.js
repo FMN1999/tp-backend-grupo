@@ -56,7 +56,7 @@ module.exports.tipoRopaServices = {
             const { id } = req.params;
             const { detalle } = req.body;
             let tr = await tipoRopaModel. updateOne({_id: id}, { $set: {detalle}});
-            Response.success(res, 200, "Tipo de Ropa actualizada correctamente", tr);
+            Response.success(res, 201, "Tipo de ropa actualizada correctamente", tr);
         } catch (error) {
             Response.error(error);
         }

@@ -72,7 +72,7 @@ module.exports.temporadaServices = {
             const {id} = req.params;
             const {detalle, fechaDesde, fechaHasta} = req.body;
             let tempo = await temporadaModel.updateOne({_id: id}, { $set: {detalle, fechaDesde, fechaHasta}});
-            Response.success(res, 200, "Temporada actualizada correctamente", tempo);
+            Response.success(res, 201, "Temporada actualizada correctamente", tempo);
         } catch (error) {
             Response.error(error);
         }

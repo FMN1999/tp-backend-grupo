@@ -52,7 +52,7 @@ module.exports.clienteServices = {
             const {id} = req.params;
             const {apellido, email, nombre} = req.body;
             let cliente = await clienteModel.updateOne({_id:id}, { $set: {apellido, email, nombre}});
-            Response.success(res, 200, "Cliente actualizado correctamente", cliente);
+            Response.success(res, 201, "Cliente actualizado correctamente", cliente);
     
         } catch (error) {
             Response.error(error);
