@@ -1,3 +1,0 @@
-28-04-22: 
-Iniciamos el proyecto por consola, e instalamos algunos paquetes (mongodb,express, nodemon, etc).
-quedo como tarea para cada uno crear un modelo que refiera a cada entidad simple de nuestra base de datos. Fecha estipulada prox reunion jueves 5-05-22 o viernes 06-05-22.
