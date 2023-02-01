@@ -2,11 +2,11 @@
 const express = require('express');
 
 //Importo el modelo que se creó, una vez obtenido el schema
-const ropaModel = require('./ropaModel');
+const ropaModel = require('../models/ropa/ropaModel');
 
 
 
-const {ropaServices} = require('./ropaServices');
+const {ropaServices} = require('../models/ropa/ropaServices');
 
 //Creo el router para así poder manejar mis propias rutas
 const router = express.Router();

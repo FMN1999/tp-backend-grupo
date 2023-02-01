@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const {precioRopaServices} = require('./precioRopaServices');
+const {precioRopaServices} = require('../models/precioRopa/precioRopaServices');
 
 
 

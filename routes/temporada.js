@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const {temporadaServices} = require('./temporadaServices');
+const {temporadaServices} = require('../models/temporada/temporadaServices');
 
 //getAll
 router.get("/", temporadaServices.getAll);

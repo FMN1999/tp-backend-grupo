@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const {comentarioRopaServices} = require('./comentarioRopaServices');
+const {comentarioRopaServices} = require('../models/comentarioRopa/comentarioRopaServices');
 
 router.get("/", comentarioRopaServices.getAll)
 

@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const {empleadoServices} = require('./empleadoServices');
+const {empleadoServices} = require('../models/empleado/empleadoServices');
 
 
 router.get("/", empleadoServices.getAll)
