@@ -6,6 +6,7 @@ const createError = require('http-errors');
 
 module.exports.tipoRopaServices = {
 
+    //FUNCIONA -- Guille 03/02/2023
     getAll: async(req, res) => {
         try {
             let tiposRopa = await tipoRopaModel.find();
@@ -15,35 +16,35 @@ module.exports.tipoRopaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     create: async(req, res) => {
         try {
             const {body} = req;
     
-            //Valido que el objeto body no esté vacío
             if(!body || Object.keys(body).length == 0){
                 Response.error(res, new createError.BadRequest());
             }
             else{
                 const tr = tipoRopaModel(req.body);
                 await tr.save();
-                Response.success(res, 201, 'Tipo de ropa agregada correctamente', tr);
+                Response.success(res, 201, `Tipo de ropa ${tr.detalle} agregada correctamente`, tr);
             }
         } catch (error) {
             Response.error(error);
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     getById: async(req, res) => {
         try {
             const {id} = req.params;
             let tr = await tipoRopaModel.findById(id);
     
-            //Valido que exista el tipo de ropa a buscar
             if(!tr){
                 Response.error(res, new createError.NotFound());
             }
             else{
-                Response.success(res, 200, `Tipo de Ropa: ${id}`, tr);
+                Response.success(res, 200, `Tipo de Ropa: ${tr.detalle}`, tr);
             }
     
         } catch (error) {
@@ -51,12 +52,14 @@ module.exports.tipoRopaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     update: async(req, res) => {
         try {
             const { id } = req.params;
             const { detalle } = req.body;
-            let tr = await tipoRopaModel. updateOne({_id: id}, { $set: {detalle}});
-            Response.success(res, 201, "Tipo de ropa actualizada correctamente", tr);
+            await tipoRopaModel. updateOne({_id: id}, { $set: {detalle}});
+            let tr = await tipoRopaModel.findById(id);
+            Response.success(res, 201, `Tipo de ropa ${tr.detalle} actualizada correctamente`, tr);
         } catch (error) {
             Response.error(error);
         }
@@ -79,11 +82,13 @@ module.exports.tipoRopaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     delete: async(req, res) => {
         try {
             const { id } = req.params;
+            let tr = await tipoRopaModel.findById(id);
             await tipoRopaModel.deleteOne({"_id": id});
-            Response.success(res, 200, `Tipo de Ropa eliminada correctamente`);
+            Response.success(res, 200, `Tipo de Ropa ${tr.detalle} eliminada correctamente`, tr);
         } catch (error) {
             Response.error(error);
         }

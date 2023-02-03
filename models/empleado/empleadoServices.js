@@ -7,6 +7,7 @@ const createError = require('http-errors');
 
 module.exports.empleadoServices = {
 
+    //FUNCIONA -- Guille 03/02/2023
     getAll: async(req, res) => {
         try {
             let empleados = await empleadoModel.find();
@@ -16,6 +17,7 @@ module.exports.empleadoServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     create: async(req, res) => {
         try {
             const {body} = req;
@@ -26,13 +28,14 @@ module.exports.empleadoServices = {
             else{
                 const emp = empleadoModel(req.body);
                 await emp.save();
-                Response.success(res, 201, 'Empleado agregado correctamente', emp);
+                Response.success(res, 201, `Empleado ${emp.nombre} ${emp.apellido} agregado correctamente`, emp);
             }
         } catch (error) {
             Response.error(error);
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     getById: async(req, res) => {
         try {
             const { id } = req.params;
@@ -41,7 +44,7 @@ module.exports.empleadoServices = {
             if(!empleado){
                 Response.error(res, new createError.NotFound());
             }else{
-                Response.success(res, 200, `Empleado: ${id}`, empleado);
+                Response.success(res, 200, `Empleado: ${empleado.nombre} ${empleado.apellido}`, empleado);
             }
     
         } catch (error) {
@@ -49,23 +52,27 @@ module.exports.empleadoServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     update: async(req, res) => {
         try {
             const {id} = req.params;
             const {apellido, legajo, nombre} = req.body;
-            let empleado = await empleadoModel.updateOne({_id:id}, { $set: {apellido, legajo, nombre}});
-            Response.success(res, 201, "Empleado actualizado correctamente", empleado);
+            await empleadoModel.updateOne({_id:id}, { $set: {apellido, legajo, nombre}});
+            let empleado = await empleadoModel.findById(id);
+            Response.success(res, 201, `Empleado ${empleado.nombre} ${empleado.apellido} actualizado correctamente`, empleado);
     
         } catch (error) {
             Response.error(error);
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     delete: async(req, res) => {
         try {
             const { id } = req.params;
-            let empleado = await empleadoModel.deleteOne({"_id": id});
-            Response.success(res, 200, `Empleado eliminado correctamente`, empleado);
+            let empleado = await empleadoModel.findById(id);
+            await empleadoModel.deleteOne({"_id": id});
+            Response.success(res, 200, `Empleado ${empleado.nombre} ${empleado.apellido} eliminado correctamente`, empleado);
         } catch (error) {
             Response.error(error);
         }

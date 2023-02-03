@@ -7,6 +7,8 @@ const createError = require('http-errors');
 
 module.exports.ropaServices = {
 
+
+    //FUNCIONA -- Guille 03/02/2023
     getAll: async(req, res) => {
         try {
             let ropas = await ropaModel.find().populate('tipoRopa').populate('precioRopa').populate('temporada');
@@ -16,6 +18,7 @@ module.exports.ropaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     create: async(req, res) => {
         try {
             const { body } = req;
@@ -27,13 +30,14 @@ module.exports.ropaServices = {
             else{
                 const ropa = ropaModel(req.body);
                 await ropa.save();
-                Response.success(res, 201, 'Ropa agregada correctamente', ropa);
+                Response.success(res, 201, `Ropa ${ropa.marca} ${ropa.detalle} agregada correctamente`, ropa);
             }
         } catch (error) {
             Response.error(res);
         }
     },
 
+    //FUNCIONA -- Guille 03/02/2023
     getById: async(req, res) => {
         try {
             const { id } = req.params;
@@ -42,31 +46,35 @@ module.exports.ropaServices = {
             if(!ropa){
                 Response.error(res, new createError.NotFound());
             }else{
-                Response.success(res, 200, `Ropa: ${id}`, ropa);
+                Response.success(res, 200, `Ropa: ${ropa.marca} ${ropa.detalle}`, ropa);
             }
     
         } catch (error) {
             Response.error(res);
         }
-    }, 
+    },
 
+    //FUNCIONA -- Guille 03/02/2023
     update: async(req, res) => {
         try {
             const {id} = req.params;
             const {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa} = req.body;
-            let ropa = await ropaModel.updateOne({_id:id}, { $set: {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa}});
-            Response.success(res, 201, "Ropa actualizada correctamente", ropa);
+            await ropaModel.updateOne({_id:id}, { $set: {marca, categoria, talle, detalle, tipoRopa, temporada, precioRopa}});
+            let ropa = await ropaModel.findById(id).populate('tipoRopa').populate('precioRopa').populate('temporada');
+            Response.success(res, 201, `Ropa ${ropa.marca} ${ropa.detalle} actualizada correctamente`, ropa);
     
         } catch (error) {
             Response.error(error);
         }
     }, 
     
+    //FUNCIONA -- Guille 03/02/2023
     delete: async(req, res) => {
         try {
             const { id } = req.params;
-            let ropa = await ropaModel.deleteOne({"_id": id});
-            Response.success(res, 200, `Ropa eliminada correctamente`, ropa);
+            let ropa = await ropaModel.findById(id).populate('tipoRopa').populate('precioRopa').populate('temporada');
+            await ropaModel.deleteOne({"_id": id});
+            Response.success(res, 200, `Ropa ${ropa.marca} ${ropa.detalle} eliminada correctamente`, ropa);
         } catch (error) {
             Response.error(error);
         }

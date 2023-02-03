@@ -4,6 +4,7 @@ const { Response } = require('../../response');
 
 module.exports.precioRopaServices = {
 
+    //FUNCIONA -- Guille 03/02/2023
     getAll: async(req, res) => {
         try {
             let preciosRopa = await precioRopaModel.find();
@@ -13,6 +14,7 @@ module.exports.precioRopaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     create: async(req, res) => {
         try {
             const{body} = req;
@@ -24,47 +26,51 @@ module.exports.precioRopaServices = {
             else{
                 const pr = precioRopaModel(req.body);
                 await pr.save();
-                Response.success(res, 201, 'Precio de ropa agregado correctamente', pr);
+                Response.success(res, 201, `Precio de ropa ${pr.importe} agregado correctamente`, pr);
             }
         } catch (error) {
             Response.error(error);
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     getById: async(req, res) => {
         try {
             const{id} = req.params;
             let pr = await precioRopaModel.findById(id);
             
-            //Valido que exista la temporada a buscar
             if(!pr){
                 Response.error(res, new createError.NotFound());
             }
             else{
-                Response.success(res, 200, `Precio de ropa: ${id}`, pr);
+                Response.success(res, 200, `Precio de ropa: ${pr.importe}`, pr);
             }
         } catch (error) {
             Response.error(res);
         }
     }, 
 
+
+    //FUNCIONA -- Guille 03/02/2023
     update: async(req, res) => {   
         try {
             const {id} = req.params;
             const {importe, fechaDesde} = req.body;
-            let pr = await precioRopaModel.updateOne({_id: id}, { $set: {importe, fechaDesde}});
-            Response.success(res, 201, "Precio de ropa actualizado correctamente", pr);
+            await precioRopaModel.updateOne({_id: id}, { $set: {importe, fechaDesde}});
+            let pr = await precioRopaModel.findById(id);
+
+            Response.success(res, 201, `Precio de ropa ${pr.importe} actualizado correctamente`, pr);
         } catch (error) {
             Response.error(error);
         }
     }, 
+
 
     getByImporte: async(req, res) => {
         try {
             const {amount} = req.params;
             let precioRopa = await precioRopaModel.find({importe: Number(amount)});
     
-            //Valido que exista el precio de ropa a buscar
             if(!precioRopa){
                 Response.error(res, new createError.NotFound());
             }
@@ -76,11 +82,14 @@ module.exports.precioRopaServices = {
         }
     }, 
 
+
+    //FUNCIONA -- Guille 03/02/2023
     delete: async(req, res) => {   
         try {
             const { id } = req.params;
+            let pr = await precioRopaModel.findById(id);
             await precioRopaModel.deleteOne({_id: id});
-            Response.success(res, 200, `Precio de ropa eliminado correctamente`);
+            Response.success(res, 200, `Precio de ropa ${pr.importe} eliminado correctamente`, pr);
         } catch (error) {
             Response.error(error);
         }

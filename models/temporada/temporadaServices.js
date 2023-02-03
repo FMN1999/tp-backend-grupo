@@ -6,6 +6,7 @@ const createError = require('http-errors');
 
 module.exports.temporadaServices = {
 
+    //FUNCIONA -- Guille 03/02/2023
     getAll: async(req, res) => {
         try {
             let temporadas = await temporadaModel.find();
@@ -15,35 +16,35 @@ module.exports.temporadaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     create: async(req, res) => {
         try {
             const {body} = req;
     
-            //Valido que el objeto body no esté vacío
             if(!body || Object.keys(body).length == 0){
                 Response.error(res, new createError.BadRequest());
             }
             else{
                 const tempo = temporadaModel(req.body);
                 await tempo.save();
-                Response.success(res, 201, 'Temporada agregada correctamente', tempo);
+                Response.success(res, 201, `Temporada ${tempo.detalle} agregada correctamente`, tempo);
             }
         } catch (error) {
             Response.error(error);
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     getById: async(req, res) => {
         try {
             const {id} = req.params;
             let tempo = await temporadaModel.findById(id);
     
-            //Valido que exista la temporada a buscar
             if(!tempo){
                 Response.error(res, new createError.NotFound());
             }
             else{
-                Response.success(res, 200, `Temporada: ${id}`, tempo);
+                Response.success(res, 200, `Temporada: ${tempo.detalle}`, tempo);
             }
         } catch (error) {
             Response.error(res);
@@ -67,22 +68,26 @@ module.exports.temporadaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     update: async(req, res) => {
         try {
             const {id} = req.params;
             const {detalle, fechaDesde, fechaHasta} = req.body;
-            let tempo = await temporadaModel.updateOne({_id: id}, { $set: {detalle, fechaDesde, fechaHasta}});
-            Response.success(res, 201, "Temporada actualizada correctamente", tempo);
+            await temporadaModel.updateOne({_id: id}, { $set: {detalle, fechaDesde, fechaHasta}});
+            let tempo = await temporadaModel.findById(id);
+            Response.success(res, 201, `Temporada ${tempo.detalle} actualizada correctamente`, tempo);
         } catch (error) {
             Response.error(error);
         }
     }, 
 
+    //FUNCIONA -- Guille 03/02/2023
     delete: async(req, res) => {
         try {
             const { id } = req.params;
+            let tempo = await temporadaModel.findById(id);
             await temporadaModel.deleteOne({_id: id});
-            Response.success(res, 200, `Temporada eliminada correctamente`);
+            Response.success(res, 200, `Temporada ${tempo.detalle} eliminada correctamente`, tempo);
         } catch (error) {
             Response.error(error);
         }
