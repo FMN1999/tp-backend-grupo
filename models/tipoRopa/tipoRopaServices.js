@@ -65,6 +65,7 @@ module.exports.tipoRopaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 06/02/2023
     getByDetalles: async(req, res) => {
         try {
             const {detail} = req.params;
@@ -82,7 +83,7 @@ module.exports.tipoRopaServices = {
         }
     }, 
 
-    //FUNCIONA -- Guille 03/02/2023
+    //FUNCIONA -- Guille 03/02/2023 
     delete: async(req, res) => {
         try {
             const { id } = req.params;

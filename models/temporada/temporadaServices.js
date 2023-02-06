@@ -51,6 +51,7 @@ module.exports.temporadaServices = {
         }
     }, 
 
+    //FUNCIONA -- Guille 06/02/2023
     getByDetalle: async(req, res) => {
         try {
             const {detail} = req.params;
