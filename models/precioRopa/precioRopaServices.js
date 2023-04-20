@@ -20,7 +20,7 @@ module.exports.precioRopaServices = {
             const{body} = req;
     
             //Valido que el objeto no esté vacío
-            if(!body || Object.keys(body).length == 0){
+            if(!body || Object.keys(body).length === 0){
                 Response.error(res, new createError.BadRequest());
             }
             else{
