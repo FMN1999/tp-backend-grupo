@@ -1,7 +1,4 @@
-//Importo el paquete de mongoose
 const mongoose = require('mongoose');
-
-//Creo el schema que luego me servirá para trabajar con el modelo
 const ropaSchema = mongoose.Schema({
     marca: {
         type:String,  
@@ -24,5 +21,4 @@ const ropaSchema = mongoose.Schema({
     precioRopa: {type: mongoose.Schema.Types.ObjectId, ref: 'PrecioRopa', required:true}
 })
 
-//Convierto el schema a modelo y lo importo para así poder trabajar desde otros archivos.
 module.exports = mongoose.model('ropa', ropaSchema);

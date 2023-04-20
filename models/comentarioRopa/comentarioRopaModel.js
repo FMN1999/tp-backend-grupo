@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const comentarioRopaSchema = mongoose.Schema({
     detalle: {
         type:String, 

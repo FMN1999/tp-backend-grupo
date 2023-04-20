@@ -1,7 +1,5 @@
 const comentarioRopaModel = require('./comentarioRopaModel');
-
 const { Response } = require('../../response');
-
 const createError = require('http-errors');
 
 module.exports.comentarioRopaServices = {
@@ -18,10 +16,10 @@ module.exports.comentarioRopaServices = {
     create: async(req, res) => {
         try {
             const {body} = req;
-    
             if(!body || Object.keys(body).length === 0){
                 Response.error(res, new createError.BadRequest());
-            } else {
+            } 
+            else{
                 const cr = comentarioRopaModel(req.body);
                 await cr.save();
                 Response.success(res, 201, 'Comentario agregado correctamente', cr);

@@ -1,5 +1,4 @@
 const mongoose = require ("mongoose");
-
 const clienteModel = mongoose.Schema({
     apellido: {
         type: String,

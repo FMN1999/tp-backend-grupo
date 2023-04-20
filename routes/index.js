@@ -6,7 +6,6 @@ const precioRopaRutas = require ('./precioRopa');
 const ropaRutas = require ('./ropa');
 const tempoRutas = require ('./temporada');
 const tipoRopaRutas = require ('./tipoRopa');
-
 const router = express.Router();
 
 router.use("/api/ropas", ropaRutas);

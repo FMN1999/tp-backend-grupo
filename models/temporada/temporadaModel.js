@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const temporadaSchema = mongoose.Schema({
     detalle: {
         type:String, 

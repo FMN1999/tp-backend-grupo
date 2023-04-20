@@ -1,5 +1,4 @@
 const mongoose = require ("mongoose");
-
 const precioRopaModel = mongoose.Schema({ 
     importe: {
         type: Number,
